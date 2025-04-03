@@ -1,4 +1,171 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // ===== Configuração do Carrossel Infinito =====
+    function setupInfiniteCarousel() {
+        const carousel = document.querySelector('.immersion-carousel');
+        if (!carousel) return;
+
+        const track = carousel.querySelector('.immersion-track');
+        const items = track.querySelectorAll('.immersion-photo');
+        
+        // Configurações adaptáveis
+        const isMobile = window.innerWidth <= 768;
+        const baseSpeed = isMobile ? 0.4 : 0.7; // Mais lento no mobile
+        let speed = baseSpeed;
+        const gap = parseInt(window.getComputedStyle(track).gap) || 20;
+        
+        // Clona os itens para efeito infinito
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            track.appendChild(clone);
+        });
+
+        let position = 0;
+        let animationId;
+        let isPaused = false;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragOffset = 0;
+
+        function animate() {
+            if (isPaused || isDragging) {
+                animationId = requestAnimationFrame(animate);
+                return;
+            }
+            
+            position -= speed;
+            const firstItemWidth = items[0].offsetWidth + gap;
+            const totalWidth = firstItemWidth * items.length;
+            
+            // Reinicia suavemente quando chega ao final
+            if (position <= -totalWidth) {
+                position = 0;
+                track.style.transition = 'none';
+                track.style.transform = `translateX(${position}px)`;
+                // Força um reflow antes de restaurar a transição
+                void track.offsetWidth;
+                track.style.transition = 'transform 0.5s linear';
+            } else {
+                track.style.transform = `translateX(${position}px)`;
+            }
+            
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // ===== Controles de Touch =====
+        function handleTouchStart(e) {
+            isDragging = true;
+            isPaused = true;
+            dragStartX = e.touches ? e.touches[0].clientX : e.clientX;
+            track.style.transition = 'none';
+            cancelAnimationFrame(animationId);
+        }
+
+        function handleTouchMove(e) {
+            if (!isDragging) return;
+            const touchX = e.touches ? e.touches[0].clientX : e.clientX;
+            dragOffset = touchX - dragStartX;
+            track.style.transform = `translateX(${position + dragOffset}px)`;
+        }
+
+        function handleTouchEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // Ajusta a posição baseada no arrasto
+            position += dragOffset;
+            dragOffset = 0;
+            
+            // Suaviza o retorno à animação
+            track.style.transition = 'transform 0.3s ease-out';
+            setTimeout(() => {
+                isPaused = false;
+                track.style.transition = 'transform 0.5s linear';
+                animate();
+            }, 300);
+        }
+
+        // Event listeners para touch
+        track.addEventListener('touchstart', handleTouchStart, { passive: true });
+        track.addEventListener('mousedown', handleTouchStart);
+        
+        track.addEventListener('touchmove', handleTouchMove, { passive: false });
+        track.addEventListener('mousemove', handleTouchMove);
+        
+        track.addEventListener('touchend', handleTouchEnd);
+        track.addEventListener('mouseup', handleTouchEnd);
+        track.addEventListener('mouseleave', handleTouchEnd);
+
+        // ===== Controles de Hover =====
+        carousel.addEventListener('mouseenter', () => {
+            if (!isMobile) {
+                isPaused = true;
+                track.style.transition = 'transform 0.3s ease-out';
+            }
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            if (!isMobile) {
+                isPaused = false;
+                track.style.transition = 'transform 0.5s linear';
+                if (!animationId) animate();
+            }
+        });
+
+        // ===== Adaptação ao Redimensionamento =====
+        function handleResize() {
+            cancelAnimationFrame(animationId);
+            
+            // Recalcula a posição proporcionalmente
+            const firstItemWidth = items[0].offsetWidth + gap;
+            const ratio = position / (firstItemWidth * items.length);
+            
+            position = ratio * (firstItemWidth * items.length);
+            speed = baseSpeed * (window.innerWidth <= 768 ? 0.6 : 1);
+            
+            track.style.transition = 'none';
+            track.style.transform = `translateX(${position}px)`;
+            
+            // Força um reflow antes de reiniciar a animação
+            void track.offsetWidth;
+            
+            animate();
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        // ===== Inicialização =====
+        function init() {
+            // Garante que os itens estão visíveis antes de calcular tamanhos
+            setTimeout(() => {
+                track.style.opacity = '1';
+                animate();
+            }, 100);
+        }
+
+        init();
+
+        // ===== Limpeza =====
+        return () => {
+            cancelAnimationFrame(animationId);
+            window.removeEventListener('resize', handleResize);
+            track.removeEventListener('touchstart', handleTouchStart);
+            track.removeEventListener('mousedown', handleTouchStart);
+            track.removeEventListener('touchmove', handleTouchMove);
+            track.removeEventListener('mousemove', handleTouchMove);
+            track.removeEventListener('touchend', handleTouchEnd);
+            track.removeEventListener('mouseup', handleTouchEnd);
+            track.removeEventListener('mouseleave', handleTouchEnd);
+            carousel.removeEventListener('mouseenter', () => {});
+            carousel.removeEventListener('mouseleave', () => {});
+        };
+    }
+
+    // ===== Inicialização do Carrossel =====
+    setupInfiniteCarousel();
+
+    // ===== Restante do seu código existente =====
+    // ... (mantenha todo o resto do seu código JavaScript aqui)
+    
     // ===== FAQ Accordion =====
     document.querySelectorAll('.faq-question').forEach(question => {
         question.addEventListener('click', () => {
@@ -139,49 +306,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setIfExists('seconds', seconds);
     }
 
-    // ===== CARROSSÉIS INFINITOS OTIMIZADOS =====
-    function setupPerfectCarousel(carouselClass, speed = 0.5) {
-        const track = document.querySelector(`.${carouselClass}`);
-        if (!track) return;
-
-        // 1. Configuração inicial
-        const items = track.children;
-        const itemCount = items.length;
-        const itemWidth = items[0].offsetWidth + parseInt(window.getComputedStyle(items[0]).marginRight);
-        
-        // 2. Duplica os itens (3x para looping perfeito)
-        track.innerHTML += track.innerHTML + track.innerHTML;
-        
-        // 3. Variáveis de controle
-        let position = 0;
-        const totalWidth = itemWidth * itemCount;
-        
-        function animate() {
-            position -= speed;
-            
-            // Reinicia suavemente quando atinge 1/3 da rolagem
-            if (position <= -totalWidth) {
-                position = 0;
-            }
-            
-            track.style.transform = `translateX(${position}px)`;
-            requestAnimationFrame(animate);
-        }
-
-        // 4. Inicia animação
-        requestAnimationFrame(animate);
-
-        // 5. Otimização para mobile
-        track.style.overflowX = 'hidden';
-        track.style.webkitOverflowScrolling = 'touch';
-    }
-
     // ===== Inicialização =====
     animateCounters();
-    
-    // Configuração dos carrosséis com velocidades personalizadas
-    setupPerfectCarousel('company-track', 0.7);  // Carrossel de cima (mais rápido)
-    setupPerfectCarousel('immersion-track', 0.4); // Carrossel de baixo (mais lento)
     
     if (document.getElementById('days')) {
         updateTimer();
