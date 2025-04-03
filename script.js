@@ -1,22 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ===== Configuração do Carrossel Infinito =====
-    function setupInfiniteCarousel() {
+    // ===== CARROSSEL DA IMERSÃO (NOVO CÓDIGO) =====
+    function setupImmersionCarousel() {
         const carousel = document.querySelector('.immersion-carousel');
         if (!carousel) return;
 
         const track = carousel.querySelector('.immersion-track');
         const items = track.querySelectorAll('.immersion-photo');
         
-        // Configurações adaptáveis
+        // Configurações IDÊNTICAS ao carrossel de empresas
         const isMobile = window.innerWidth <= 768;
-        const baseSpeed = isMobile ? 0.4 : 0.7; // Mais lento no mobile
-        let speed = baseSpeed;
-        const gap = parseInt(window.getComputedStyle(track).gap) || 20;
+        const speed = isMobile ? 0.4 : 0.7;
+        const gap = 20;
         
-        // Clona os itens para efeito infinito
+        // Clona os itens (igual ao de empresas)
         items.forEach(item => {
-            const clone = item.cloneNode(true);
-            track.appendChild(clone);
+            track.appendChild(item.cloneNode(true));
         });
 
         let position = 0;
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let isPaused = false;
         let isDragging = false;
         let dragStartX = 0;
-        let dragOffset = 0;
 
         function animate() {
             if (isPaused || isDragging) {
@@ -33,16 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             position -= speed;
-            const firstItemWidth = items[0].offsetWidth + gap;
-            const totalWidth = firstItemWidth * items.length;
+            const itemWidth = items[0].offsetWidth + gap;
+            const totalWidth = itemWidth * items.length;
             
-            // Reinicia suavemente quando chega ao final
             if (position <= -totalWidth) {
                 position = 0;
                 track.style.transition = 'none';
                 track.style.transform = `translateX(${position}px)`;
-                // Força um reflow antes de restaurar a transição
-                void track.offsetWidth;
+                void track.offsetWidth; // Força reflow
                 track.style.transition = 'transform 0.5s linear';
             } else {
                 track.style.transform = `translateX(${position}px)`;
@@ -51,121 +46,40 @@ document.addEventListener('DOMContentLoaded', function() {
             animationId = requestAnimationFrame(animate);
         }
 
-        // ===== Controles de Touch =====
-        function handleTouchStart(e) {
+        // Touch events (igual ao de empresas)
+        track.addEventListener('touchstart', (e) => {
             isDragging = true;
             isPaused = true;
-            dragStartX = e.touches ? e.touches[0].clientX : e.clientX;
+            dragStartX = e.touches[0].clientX;
             track.style.transition = 'none';
-            cancelAnimationFrame(animationId);
-        }
+        }, { passive: true });
 
-        function handleTouchMove(e) {
+        track.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            const touchX = e.touches ? e.touches[0].clientX : e.clientX;
-            dragOffset = touchX - dragStartX;
-            track.style.transform = `translateX(${position + dragOffset}px)`;
-        }
+            const touchX = e.touches[0].clientX;
+            const diff = touchX - dragStartX;
+            track.style.transform = `translateX(${position + diff}px)`;
+        }, { passive: false });
 
-        function handleTouchEnd() {
-            if (!isDragging) return;
+        track.addEventListener('touchend', () => {
             isDragging = false;
-            
-            // Ajusta a posição baseada no arrasto
-            position += dragOffset;
-            dragOffset = 0;
-            
-            // Suaviza o retorno à animação
-            track.style.transition = 'transform 0.3s ease-out';
-            setTimeout(() => {
-                isPaused = false;
-                track.style.transition = 'transform 0.5s linear';
-                animate();
-            }, 300);
-        }
-
-        // Event listeners para touch
-        track.addEventListener('touchstart', handleTouchStart, { passive: true });
-        track.addEventListener('mousedown', handleTouchStart);
-        
-        track.addEventListener('touchmove', handleTouchMove, { passive: false });
-        track.addEventListener('mousemove', handleTouchMove);
-        
-        track.addEventListener('touchend', handleTouchEnd);
-        track.addEventListener('mouseup', handleTouchEnd);
-        track.addEventListener('mouseleave', handleTouchEnd);
-
-        // ===== Controles de Hover =====
-        carousel.addEventListener('mouseenter', () => {
-            if (!isMobile) {
-                isPaused = true;
-                track.style.transition = 'transform 0.3s ease-out';
-            }
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-            if (!isMobile) {
-                isPaused = false;
-                track.style.transition = 'transform 0.5s linear';
-                if (!animationId) animate();
-            }
-        });
-
-        // ===== Adaptação ao Redimensionamento =====
-        function handleResize() {
-            cancelAnimationFrame(animationId);
-            
-            // Recalcula a posição proporcionalmente
-            const firstItemWidth = items[0].offsetWidth + gap;
-            const ratio = position / (firstItemWidth * items.length);
-            
-            position = ratio * (firstItemWidth * items.length);
-            speed = baseSpeed * (window.innerWidth <= 768 ? 0.6 : 1);
-            
-            track.style.transition = 'none';
-            track.style.transform = `translateX(${position}px)`;
-            
-            // Força um reflow antes de reiniciar a animação
-            void track.offsetWidth;
-            
+            isPaused = false;
+            track.style.transition = 'transform 0.5s linear';
             animate();
-        }
+        });
 
-        window.addEventListener('resize', handleResize);
+        // Inicia animação
+        animate();
 
-        // ===== Inicialização =====
-        function init() {
-            // Garante que os itens estão visíveis antes de calcular tamanhos
-            setTimeout(() => {
-                track.style.opacity = '1';
-                animate();
-            }, 100);
-        }
-
-        init();
-
-        // ===== Limpeza =====
-        return () => {
+        // Redimensionamento
+        window.addEventListener('resize', () => {
             cancelAnimationFrame(animationId);
-            window.removeEventListener('resize', handleResize);
-            track.removeEventListener('touchstart', handleTouchStart);
-            track.removeEventListener('mousedown', handleTouchStart);
-            track.removeEventListener('touchmove', handleTouchMove);
-            track.removeEventListener('mousemove', handleTouchMove);
-            track.removeEventListener('touchend', handleTouchEnd);
-            track.removeEventListener('mouseup', handleTouchEnd);
-            track.removeEventListener('mouseleave', handleTouchEnd);
-            carousel.removeEventListener('mouseenter', () => {});
-            carousel.removeEventListener('mouseleave', () => {});
-        };
+            position = 0;
+            track.style.transform = 'translateX(0)';
+            animate();
+        });
     }
 
-    // ===== Inicialização do Carrossel =====
-    setupInfiniteCarousel();
-
-    // ===== Restante do seu código existente =====
-    // ... (mantenha todo o resto do seu código JavaScript aqui)
-    
     // ===== FAQ Accordion =====
     document.querySelectorAll('.faq-question').forEach(question => {
         question.addEventListener('click', () => {
