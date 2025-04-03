@@ -71,24 +71,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!track || items.length === 0) return;
 
-        const totalWidth = track.scrollWidth;
-        const viewportWidth = track.parentElement.offsetWidth;
+        // Limpa clones existentes para evitar duplicação
+        const clones = track.querySelectorAll('.cloned');
+        clones.forEach(clone => clone.remove());
 
-        let clonedWidth = 0;
-        while (clonedWidth < viewportWidth * 2) {
+        // Calcula a largura total dos itens originais
+        let originalWidth = 0;
+        items.forEach(item => {
+            originalWidth += item.offsetWidth;
+        });
+
+        // Se não houver largura suficiente, não prosseguir
+        if (originalWidth === 0) return;
+
+        // Clona os itens suficientes para preencher pelo menos o dobro da viewport
+        const viewportWidth = track.parentElement.offsetWidth;
+        const neededClones = Math.ceil((viewportWidth * 2) / originalWidth) + 1;
+
+        // Adiciona os clones
+        for (let i = 0; i < neededClones; i++) {
             items.forEach(item => {
                 const clone = item.cloneNode(true);
+                clone.classList.add('cloned');
                 track.appendChild(clone);
-                clonedWidth += item.offsetWidth;
             });
         }
 
-        track.style.display = 'flex';
-        track.style.gap = '20px';
-        track.style.animation = `scroll ${duration}s linear infinite`;
+        // Configura a animação
+        const totalItemsWidth = originalWidth * (1 + neededClones);
+        const animationDuration = duration * (totalItemsWidth / viewportWidth);
+
+        track.style.animation = 'none';
+        void track.offsetWidth; // Trigger reflow
+        track.style.animation = `scroll ${animationDuration}s linear infinite`;
+
+        // Reinicia a animação quando terminar para evitar piscar
+        track.addEventListener('animationiteration', () => {
+            track.style.animation = 'none';
+            void track.offsetWidth;
+            track.style.animation = `scroll ${animationDuration}s linear infinite`;
+        });
     }
-    
+
+    // Adicione este CSS keyframe se não estiver no seu CSS
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Inicializa os carrosseis
     setupInfiniteCarousel('.company-track', '.company-logo', 20);
     setupInfiniteCarousel('.immersion-track', '.immersion-photo', 20);
 });
-
