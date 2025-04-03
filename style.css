@@ -1713,3 +1713,15 @@ body::before {
     opacity: 1 !important; /* Override para evitar hide em mobile */
 }
 
+.company-track,
+.immersion-track {
+    display: flex;
+    gap: 20px; /* Ajuste conforme seu design */
+    width: max-content;
+    will-change: transform;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+}
