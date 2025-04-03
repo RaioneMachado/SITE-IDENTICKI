@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const item = question.parentElement;
             item.classList.toggle('active');
             
+            // Fecha outros itens
             document.querySelectorAll('.faq-item').forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     block: 'start'
                 });
                 
+                // Fecha menu mobile se aberto
                 if (document.querySelector('nav')?.classList.contains('active')) {
                     toggleMobileMenu();
                 }
@@ -139,41 +141,31 @@ document.addEventListener('DOMContentLoaded', function() {
         setIfExists('seconds', seconds);
     }
 
-    // ===== CARROSSÉIS INFINITOS (SOLUÇÃO DEFINITIVA) =====
-    function setupPerfectCarousel(carouselClass, speed = 0.5) {
+    // ===== Carrosséis Infinitos (Versão Simplificada) =====
+    function setupInfiniteCarousel(carouselClass, duration = 30) {
         const track = document.querySelector(`.${carouselClass}`);
         if (!track) return;
 
-        // 1. Duplica os itens (5x para garantia)
-        const originalContent = track.innerHTML;
-        track.innerHTML = originalContent + originalContent + originalContent + originalContent + originalContent;
+        // Duplica os itens para efeito infinito
+        const items = track.innerHTML;
+        track.innerHTML = items + items;
 
-        // 2. Configura animação
-        let position = 0;
-        const itemWidth = track.children[0].offsetWidth + parseInt(window.getComputedStyle(track.children[0]).marginRight);
-        const visibleItems = Math.ceil(track.parentElement.offsetWidth / itemWidth);
-        const resetPoint = itemWidth * (track.children.length / 5 - visibleItems);
-
-        function animate() {
-            position -= speed;
-            
-            // Reinicia antes do final
-            if (position <= -resetPoint) {
-                position = 0;
-            }
-            
-            track.style.transform = `translateX(${position}px)`;
-            requestAnimationFrame(animate);
-        }
-
-        // 3. Inicia animação
-        requestAnimationFrame(animate);
+        // Configura animação CSS
+        track.style.animation = `scroll ${duration}s linear infinite`;
+        
+        // Reinicia suavemente quando completa um ciclo
+        track.addEventListener('animationiteration', () => {
+            // Força recálculo para evitar piscar
+            track.style.animation = 'none';
+            void track.offsetWidth;
+            track.style.animation = `scroll ${duration}s linear infinite`;
+        });
     }
 
     // ===== Inicialização =====
     animateCounters();
-    setupPerfectCarousel('company-track', 0.5);
-    setupPerfectCarousel('immersion-track', 0.5);
+    setupInfiniteCarousel('company-track', 30); // 30 segundos por ciclo
+    setupInfiniteCarousel('immersion-track', 40); // 40 segundos por ciclo
     
     if (document.getElementById('days')) {
         updateTimer();
