@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // FAQ Toggle
+    // ===== FAQ Accordion =====
     document.querySelectorAll('.faq-question').forEach(question => {
         question.addEventListener('click', () => {
             const item = question.parentElement;
             item.classList.toggle('active');
             
-            // Fecha outros itens abertos
+            // Fecha outros itens
             document.querySelectorAll('.faq-item').forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
@@ -13,161 +13,172 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-    
-    // Smooth scrolling para links
+
+    // ===== Smooth Scrolling =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start' // Alinhar ao topo
                 });
                 
-                // Fecha o menu mobile se estiver aberto
-                if (document.querySelector('nav').classList.contains('active')) {
+                // Fecha menu mobile se aberto
+                if (document.querySelector('nav')?.classList.contains('active')) {
                     toggleMobileMenu();
                 }
             }
         });
     });
-    
-    // Header scroll effect
+
+    // ===== Header Scroll Effect =====
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        if (header) {
+            header.style.boxShadow = window.scrollY > 50 
+                ? '0 2px 10px rgba(0, 0, 0, 0.2)' 
+                : '0 2px 10px rgba(0, 0, 0, 0.1)';
         }
     });
-    
-    // Mobile menu toggle
+
+    // ===== Mobile Menu Toggle =====
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+
     function toggleMobileMenu() {
         const nav = document.querySelector('nav');
-        nav.classList.toggle('active');
+        const icon = mobileMenuBtn?.querySelector('i');
         
-        // Altera o ícone do botão
-        const icon = mobileMenuBtn.querySelector('i');
-        if (nav.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+        if (nav && icon) {
+            nav.classList.toggle('active');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         }
     }
-    
-    // Fecha o menu ao clicar fora
-    document.addEventListener('click', function(e) {
+
+    // Fecha menu ao clicar fora
+    document.addEventListener('click', (e) => {
         const nav = document.querySelector('nav');
         const mobileBtn = document.querySelector('.mobile-menu-btn');
         
-        if (nav.classList.contains('active') && 
+        if (nav?.classList.contains('active') && 
             !nav.contains(e.target) && 
             e.target !== mobileBtn && 
-            !mobileBtn.contains(e.target)) {
+            !mobileBtn?.contains(e.target)) {
             toggleMobileMenu();
         }
     });
-});
-// Adicione este código ao seu script.js
-function setupCarousel() {
-    const track = document.querySelector('.company-track');
-    const logos = document.querySelectorAll('.company-track img');
-    const logosCount = logos.length / 2; // Dividido por 2 porque duplicamos os itens
-    
-    // Ajusta a largura do track para acomodar todas as logos
-    const logoWidth = 100; // Largura aproximada de cada logo + gap
-    track.style.width = `${logoWidth * logosCount * 2}px`;
-    
-    // Reinicia a animação quando terminar para evitar piscar
-    track.addEventListener('animationiteration', () => {
-        track.style.animation = 'none';
-        void track.offsetWidth; // Trigger reflow
-        track.style.animation = 'scroll 30s linear infinite';
-    });
-}
 
-// Chame a função quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', setupCarousel);
-// Contadores animados
-function animateCounters() {
-    const counters = document.querySelectorAll('.counter');
-    const speed  = 200; // Quanto menor, mais rápido
-    const mentorSection = document.querySelector('.mentor-section');
+    // ===== Contadores Animados (FIX PRINCIPAL) =====
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        if (!counters.length) return;
+
+        const startCounting = () => {
+            counters.forEach(counter => {
+                const target = +counter.dataset.target || 0;
+                const duration = 2000; // 2s para completar
+                let start = null;
+
+                const step = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / duration, 1);
+                    counter.textContent = Math.floor(progress * target);
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                requestAnimationFrame(step);
+            });
+        };
+
+        // Tenta usar IntersectionObserver
+        const mentorSection = document.querySelector('.mentor-section');
+        if (mentorSection) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting) {
+                        startCounting();
+                        observer.disconnect();
+                    }
+                },
+                { 
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px' // Ativa 100px antes de chegar no elemento
+                }
+            );
+            observer.observe(mentorSection);
+        } else {
+            // Fallback: Inicia após 500ms
+            setTimeout(startCounting, 500);
+        }
+    }
+
+    // ===== Contador Regressivo (Compatible com Safari) =====
+    function updateTimer() {
+        const now = new Date().getTime();
+        const endDate = now + (3 * 24 * 60 * 60 * 1000); // 3 dias no futuro
+
+        const diff = endDate - now;
+        const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+        // Atualiza apenas elementos existentes
+        const setIfExists = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        };
+
+        setIfExists('days', days);
+        setIfExists('hours', hours);
+        setIfExists('minutes', minutes);
+        setIfExists('seconds', seconds);
+    }
+
+    // ===== Carrossel de Logos =====
+    function setupCarousel() {
+        const track = document.querySelector('.company-track');
+        if (!track) return;
+
+        const logos = track.querySelectorAll('img');
+        track.style.width = `${logos.length * 100}px`;
+
+        // Reinicia animação suavemente
+        track.addEventListener('animationiteration', () => {
+            track.style.animation = 'none';
+            void track.offsetWidth; // Force reflow
+            track.style.animation = 'scroll 30s linear infinite';
+        });
+    }
+
+    // ===== Inicialização =====
+    animateCounters();
+    setupCarousel();
     
-    const observer = new IntersectionObserver((entries) => {
+    if (document.getElementById('days')) {
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    }
+
+    // ===== Observador de Elementos Animados =====
+    new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
-                    const increment = target / speed;
-                    
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count + increment);
-                        setTimeout(animateCounters, 1);
-                    } else {
-                        counter.innerText = target;
-                    }
-                });
-                observer.unobserve(entry.target);
+                entry.target.classList.add('animated');
             }
         });
-    }, { threshold: 0.5 });
-    
-    observer.observe(mentorSection);
-}
-
-// Chame a função quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', animateCounters);
-// Contador regressivo
-function updateTimer() {
-    const now = new Date();
-    const endDate = new Date();
-    endDate.setDate(now.getDate() + 3); // 3 dias a partir de agora
-    
-    const diff = endDate - now;
-    
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-    
-    // Efeito de flip nos dígitos que mudaram
-    const timerItems = document.querySelectorAll('.timer-item');
-    timerItems.forEach(item => {
-        item.classList.add('flip');
-        setTimeout(() => item.classList.remove('flip'), 1000);
-    });
-}
-
-// Iniciar contador
-updateTimer();
-setInterval(updateTimer, 1000);
-
-// Animar elementos quando visíveis na tela
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.slide-in-left, .slide-in-right, .rotate-3d').forEach(el => {
-    observer.observe(el);
+    }, { threshold: 0.1 }).observe(document.querySelector('.slide-in-left, .slide-in-right, .rotate-3d'));
 });

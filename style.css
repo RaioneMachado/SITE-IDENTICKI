@@ -1708,3 +1708,7 @@ body::before {
     position: relative;
 }
 
+.mentor-section {
+    min-height: 1px; /* Garante que o elemento ocupa espaço mesmo em telas estreitas */
+    opacity: 1 !important; /* Override para evitar hide em mobile */
+}
