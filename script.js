@@ -68,13 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupInfiniteCarousel(trackSelector, itemSelector, duration = 30) {
         const track = document.querySelector(trackSelector);
         const items = document.querySelectorAll(`${trackSelector} ${itemSelector}`);
-        
+
         if (!track || items.length === 0) return;
-        
-        items.forEach(item => {
-            const clone = item.cloneNode(true);
-            track.appendChild(clone);
-        });
+
+        const totalWidth = track.scrollWidth;
+        const viewportWidth = track.parentElement.offsetWidth;
+
+        let clonedWidth = 0;
+        while (clonedWidth < viewportWidth * 2) {
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+                clonedWidth += item.offsetWidth;
+            });
+        }
 
         track.style.display = 'flex';
         track.style.gap = '20px';
@@ -84,3 +91,4 @@ document.addEventListener('DOMContentLoaded', function() {
     setupInfiniteCarousel('.company-track', '.company-logo', 20);
     setupInfiniteCarousel('.immersion-track', '.immersion-photo', 20);
 });
+

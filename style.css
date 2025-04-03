@@ -1725,3 +1725,19 @@ body::before {
     overflow: hidden;
     position: relative;
 }
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%); /* Move metade do track para simular continuidade */
+    }
+}
+
+.immersion-track {
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: scroll 30s linear infinite;
+}
