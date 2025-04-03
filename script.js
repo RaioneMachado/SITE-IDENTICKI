@@ -139,26 +139,29 @@ document.addEventListener('DOMContentLoaded', function() {
         setIfExists('seconds', seconds);
     }
 
-    // ===== CARROSSÉIS INFINITOS (SOLUÇÃO DEFINITIVA) =====
-    function setupPerfectCarousel(carouselClass, speed = 0.5) {
+    // ===== CARROSSÉIS INFINITOS OTIMIZADOS =====
+    function setupInfiniteCarousel(carouselClass) {
         const track = document.querySelector(`.${carouselClass}`);
         if (!track) return;
 
-        // 1. Duplica os itens (5x para garantia)
-        const originalContent = track.innerHTML;
-        track.innerHTML = originalContent + originalContent + originalContent + originalContent + originalContent;
-
-        // 2. Configura animação
+        // 1. Configuração inicial
+        const items = track.children;
+        const itemCount = items.length;
+        const itemWidth = items[0].offsetWidth + parseInt(window.getComputedStyle(items[0]).marginRight);
+        
+        // 2. Duplica os itens para looping suave
+        track.innerHTML += track.innerHTML + track.innerHTML;
+        
+        // 3. Controle de animação
         let position = 0;
-        const itemWidth = track.children[0].offsetWidth + parseInt(window.getComputedStyle(track.children[0]).marginRight);
-        const visibleItems = Math.ceil(track.parentElement.offsetWidth / itemWidth);
-        const resetPoint = itemWidth * (track.children.length / 5 - visibleItems);
+        const totalWidth = itemWidth * itemCount;
+        const speed = 0.5; // Velocidade controlada (ajuste conforme necessário)
 
         function animate() {
             position -= speed;
             
-            // Reinicia antes do final
-            if (position <= -resetPoint) {
+            // Reinicia suavemente quando atinge 1/3 do scroll
+            if (position <= -totalWidth) {
                 position = 0;
             }
             
@@ -166,14 +169,18 @@ document.addEventListener('DOMContentLoaded', function() {
             requestAnimationFrame(animate);
         }
 
-        // 3. Inicia animação
+        // 4. Inicia animação
         requestAnimationFrame(animate);
+
+        // 5. Otimização para mobile
+        track.style.overflowX = 'hidden';
+        track.style.webkitOverflowScrolling = 'touch';
     }
 
     // ===== Inicialização =====
     animateCounters();
-    setupPerfectCarousel('company-track', 0.5);
-    setupPerfectCarousel('immersion-track', 0.5);
+    setupInfiniteCarousel('company-track');
+    setupInfiniteCarousel('immersion-track');
     
     if (document.getElementById('days')) {
         updateTimer();
