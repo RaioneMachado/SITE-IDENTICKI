@@ -1713,14 +1713,3 @@ body::before {
     opacity: 1 !important; /* Override para evitar hide em mobile */
 }
 
-.company-track,
-.immersion-track {
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    user-select: none;
-}
-
-.company-track img,
-.immersion-photo {
-    scroll-snap-align: start;
-}
