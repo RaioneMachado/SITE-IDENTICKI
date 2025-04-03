@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== CARROSSÉIS INFINITOS OTIMIZADOS =====
-    function setupInfiniteCarousel(carouselClass) {
+    function setupPerfectCarousel(carouselClass, speed = 0.5) {
         const track = document.querySelector(`.${carouselClass}`);
         if (!track) return;
 
@@ -149,18 +149,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemCount = items.length;
         const itemWidth = items[0].offsetWidth + parseInt(window.getComputedStyle(items[0]).marginRight);
         
-        // 2. Duplica os itens para looping suave
+        // 2. Duplica os itens (3x para looping perfeito)
         track.innerHTML += track.innerHTML + track.innerHTML;
         
-        // 3. Controle de animação
+        // 3. Variáveis de controle
         let position = 0;
         const totalWidth = itemWidth * itemCount;
-        const speed = 0.5; // Velocidade controlada (ajuste conforme necessário)
-
+        
         function animate() {
             position -= speed;
             
-            // Reinicia suavemente quando atinge 1/3 do scroll
+            // Reinicia suavemente quando atinge 1/3 da rolagem
             if (position <= -totalWidth) {
                 position = 0;
             }
@@ -179,8 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== Inicialização =====
     animateCounters();
-    setupInfiniteCarousel('company-track');
-    setupInfiniteCarousel('immersion-track');
+    
+    // Configuração dos carrosséis com velocidades personalizadas
+    setupPerfectCarousel('company-track', 0.7);  // Carrossel de cima (mais rápido)
+    setupPerfectCarousel('immersion-track', 0.4); // Carrossel de baixo (mais lento)
     
     if (document.getElementById('days')) {
         updateTimer();
