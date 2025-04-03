@@ -39,11 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Header scroll effect
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        }
+        header.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0, 0, 0, 0.2)' : '0 2px 10px rgba(0, 0, 0, 0.1)';
     });
     
     // Mobile menu toggle
@@ -54,15 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const nav = document.querySelector('nav');
         nav.classList.toggle('active');
         
-        // Altera o ícone do botão
         const icon = mobileMenuBtn.querySelector('i');
-        if (nav.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
     }
     
     // Fecha o menu ao clicar fora
@@ -70,77 +60,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const nav = document.querySelector('nav');
         const mobileBtn = document.querySelector('.mobile-menu-btn');
         
-        if (nav.classList.contains('active') && 
-            !nav.contains(e.target) && 
-            e.target !== mobileBtn && 
-            !mobileBtn.contains(e.target)) {
+        if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== mobileBtn && !mobileBtn.contains(e.target)) {
             toggleMobileMenu();
         }
     });
     
-    function setupCarousel(trackSelector, itemSelector, duration = 30) {
+    function setupInfiniteCarousel(trackSelector, itemSelector, duration = 30) {
         const track = document.querySelector(trackSelector);
         const items = document.querySelectorAll(`${trackSelector} ${itemSelector}`);
         
         if (!track || items.length === 0) return;
         
-        // Duplica os itens para criar um efeito de loop infinito
         items.forEach(item => {
             const clone = item.cloneNode(true);
             track.appendChild(clone);
         });
 
+        track.style.display = 'flex';
+        track.style.gap = '20px';
         track.style.animation = `scroll ${duration}s linear infinite`;
     }
     
-    setupCarousel('.company-track', '.company-logo', 30);
-    setupCarousel('.immersion-track', '.immersion-photo', 30);
-
-    // Contadores animados corrigidos
-    function animateCounters() {
-        const counters = document.querySelectorAll('.counter');
-        const speed = 200;
-        
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            let count = 0;
-            
-            function updateCounter() {
-                const increment = target / speed;
-                if (count < target) {
-                    count += increment;
-                    counter.innerText = Math.ceil(count);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.innerText = target;
-                }
-            }
-            updateCounter();
-        });
-    }
-    
-    document.addEventListener('scroll', animateCounters);
-
-    // Contador regressivo corrigido
-    function updateTimer() {
-        const now = new Date();
-        const endDate = new Date();
-        endDate.setDate(now.getDate() + 3);
-
-        const diff = endDate - now;
-        if (diff <= 0) return;
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('days').textContent = days.toString().padStart(2, '0');
-        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-    }
-    
-    updateTimer();
-    setInterval(updateTimer, 1000);
+    setupInfiniteCarousel('.company-track', '.company-logo', 20);
+    setupInfiniteCarousel('.immersion-track', '.immersion-photo', 20);
 });
