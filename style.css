@@ -1741,3 +1741,47 @@ body::before {
     overflow: hidden;
     animation: scroll 30s linear infinite;
 }
+
+/* Container do carrossel */
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Track do carrossel */
+.company-track, .immersion-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Itens do carrossel */
+.company-logo, .immersion-photo {
+    flex-shrink: 0;
+}
+
+/* Garante que a animação seja suave */
+@keyframes infiniteScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+/* Garante que os itens do carrossel tenham tamanho consistente no mobile */
+.company-logo, .immersion-photo {
+    flex: 0 0 auto;
+    width: 150px; /* ou o tamanho desejado */
+    height: auto;
+}
+
+/* Otimiza a renderização no mobile */
+.carousel-container {
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch; /* Suave no iOS */
+    transform: translateZ(0); /* Aceleração de hardware */
+}
+
+.company-track, .immersion-track {
+    display: flex;
+    will-change: transform;
+    backface-visibility: hidden; /* Melhora a renderização */
+}
