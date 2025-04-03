@@ -139,24 +139,26 @@ document.addEventListener('DOMContentLoaded', function() {
         setIfExists('seconds', seconds);
     }
 
-    // ===== Carrosséis Infinitos (Versão Atualizada) =====
-    function setupSmoothCarousel(carouselClass, speed = 0.5) {
+    // ===== CARROSSÉIS INFINITOS (SOLUÇÃO DEFINITIVA) =====
+    function setupPerfectCarousel(carouselClass, speed = 0.5) {
         const track = document.querySelector(`.${carouselClass}`);
         if (!track) return;
 
-        // 1. Duplica os itens
-        const items = track.innerHTML;
-        track.innerHTML = items + items;
+        // 1. Duplica os itens (5x para garantia)
+        const originalContent = track.innerHTML;
+        track.innerHTML = originalContent + originalContent + originalContent + originalContent + originalContent;
 
         // 2. Configura animação
         let position = 0;
-        const itemsWidth = track.scrollWidth / 2;
-        
+        const itemWidth = track.children[0].offsetWidth + parseInt(window.getComputedStyle(track.children[0]).marginRight);
+        const visibleItems = Math.ceil(track.parentElement.offsetWidth / itemWidth);
+        const resetPoint = itemWidth * (track.children.length / 5 - visibleItems);
+
         function animate() {
             position -= speed;
             
-            // Reinicia quando chega no final
-            if (position <= -itemsWidth) {
+            // Reinicia antes do final
+            if (position <= -resetPoint) {
                 position = 0;
             }
             
@@ -170,8 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== Inicialização =====
     animateCounters();
-    setupSmoothCarousel('company-track', 0.7); // Mais rápido
-    setupSmoothCarousel('immersion-track', 0.5); // Mais lento
+    setupPerfectCarousel('company-track', 0.5);
+    setupPerfectCarousel('immersion-track', 0.5);
     
     if (document.getElementById('days')) {
         updateTimer();
