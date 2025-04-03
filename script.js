@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const item = question.parentElement;
             item.classList.toggle('active');
             
-            // Fecha outros itens
             document.querySelectorAll('.faq-item').forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
@@ -25,10 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetElement) {
                 targetElement.scrollIntoView({ 
                     behavior: 'smooth',
-                    block: 'start' // Alinhar ao topo
+                    block: 'start'
                 });
                 
-                // Fecha menu mobile se aberto
                 if (document.querySelector('nav')?.classList.contains('active')) {
                     toggleMobileMenu();
                 }
@@ -76,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===== Contadores Animados (FIX PRINCIPAL) =====
+    // ===== Contadores Animados =====
     function animateCounters() {
         const counters = document.querySelectorAll('.counter');
         if (!counters.length) return;
@@ -84,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const startCounting = () => {
             counters.forEach(counter => {
                 const target = +counter.dataset.target || 0;
-                const duration = 2000; // 2s para completar
+                const duration = 2000;
                 let start = null;
 
                 const step = (timestamp) => {
@@ -98,12 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         counter.textContent = target;
                     }
                 };
-
                 requestAnimationFrame(step);
             });
         };
 
-        // Tenta usar IntersectionObserver
         const mentorSection = document.querySelector('.mentor-section');
         if (mentorSection) {
             const observer = new IntersectionObserver(
@@ -113,22 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         observer.disconnect();
                     }
                 },
-                { 
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -100px 0px' // Ativa 100px antes de chegar no elemento
-                }
+                { threshold: 0.1 }
             );
             observer.observe(mentorSection);
         } else {
-            // Fallback: Inicia após 500ms
             setTimeout(startCounting, 500);
         }
     }
 
-    // ===== Contador Regressivo (Compatible com Safari) =====
+    // ===== Contador Regressivo =====
     function updateTimer() {
         const now = new Date().getTime();
-        const endDate = now + (3 * 24 * 60 * 60 * 1000); // 3 dias no futuro
+        const endDate = now + (3 * 24 * 60 * 60 * 1000);
 
         const diff = endDate - now;
         const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
@@ -136,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
         const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
 
-        // Atualiza apenas elementos existentes
         const setIfExists = (id, value) => {
             const el = document.getElementById(id);
             if (el) el.textContent = value;
@@ -148,25 +139,83 @@ document.addEventListener('DOMContentLoaded', function() {
         setIfExists('seconds', seconds);
     }
 
-    // ===== Carrossel de Logos =====
-    function setupCarousel() {
-        const track = document.querySelector('.company-track');
+    // ===== Carrosséis com Scroll Automático e Manual =====
+    function setupEnhancedCarousel(carouselClass) {
+        const track = document.querySelector(`.${carouselClass}`);
         if (!track) return;
 
-        const logos = track.querySelectorAll('img');
-        track.style.width = `${logos.length * 100}px`;
+        // Configuração inicial
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeftStart = 0;
+        let animationId;
+        let autoScrollSpeed = 1;
+        let isHovering = false;
 
-        // Reinicia animação suavemente
-        track.addEventListener('animationiteration', () => {
-            track.style.animation = 'none';
-            void track.offsetWidth; // Force reflow
-            track.style.animation = 'scroll 30s linear infinite';
+        // Rolagem automática suave
+        function autoScroll() {
+            if (!isDragging && !isHovering) {
+                track.scrollLeft += autoScrollSpeed;
+                
+                // Reinicia no final
+                if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 10) {
+                    track.scrollTo({ left: 0, behavior: 'auto' });
+                }
+            }
+            animationId = requestAnimationFrame(autoScroll);
+        }
+
+        // Eventos de mouse
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+            scrollLeftStart = track.scrollLeft;
+            track.style.scrollBehavior = 'auto';
+            track.style.cursor = 'grabbing';
         });
+
+        // Eventos de touch
+        track.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX;
+            scrollLeftStart = track.scrollLeft;
+            track.style.scrollBehavior = 'auto';
+        }, { passive: true });
+
+        // Movimento
+        const handleMove = (x) => {
+            if (!isDragging) return;
+            const walk = (x - startX) * 2;
+            track.scrollLeft = scrollLeftStart - walk;
+        };
+
+        document.addEventListener('mousemove', (e) => handleMove(e.pageX));
+        document.addEventListener('touchmove', (e) => handleMove(e.touches[0].pageX), { passive: false });
+
+        // Finalização
+        const endDrag = () => {
+            isDragging = false;
+            track.style.scrollBehavior = 'smooth';
+            track.style.cursor = 'grab';
+        };
+
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
+
+        // Pausa no hover (desktop)
+        track.addEventListener('mouseenter', () => isHovering = true);
+        track.addEventListener('mouseleave', () => isHovering = false);
+
+        // Inicia
+        track.style.cursor = 'grab';
+        track.style.overflowX = 'hidden';
+        animationId = requestAnimationFrame(autoScroll);
     }
 
     // ===== Inicialização =====
     animateCounters();
-    setupCarousel();
+    setupEnhancedCarousel('company-track');
+    setupEnhancedCarousel('immersion-track');
     
     if (document.getElementById('days')) {
         updateTimer();
@@ -174,11 +223,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== Observador de Elementos Animados =====
-    new IntersectionObserver((entries) => {
+    const animationObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animated');
             }
         });
-    }, { threshold: 0.1 }).observe(document.querySelector('.slide-in-left, .slide-in-right, .rotate-3d'));
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.slide-in-left, .slide-in-right, .rotate-3d').forEach(el => {
+        animationObserver.observe(el);
+    });
 });
