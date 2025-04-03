@@ -1,136 +1,4 @@
-// Aguarda tudo estar completamente carregado, incluindo imagens
-window.addEventListener('load', function() {
-    // ===== CARROSSEL DA IMERSÃO - SOLUÇÃO DEFINITIVA =====
-    function setupImmersionCarousel() {
-        const carousel = document.querySelector('.immersion-carousel');
-        if (!carousel) return;
-
-        // Mostra o carrossel imediatamente
-        carousel.style.opacity = '1';
-        const track = carousel.querySelector('.immersion-track');
-        const items = track.querySelectorAll('.immersion-photo');
-        
-        // Configurações do carrossel
-        const isMobile = window.innerWidth <= 768;
-        const speed = isMobile ? 0.4 : 0.7;
-        const gap = 20;
-        
-        // Clona os itens para efeito infinito
-        items.forEach(item => {
-            track.appendChild(item.cloneNode(true));
-        });
-
-        let position = 0;
-        let animationId;
-        let isPaused = false;
-        let isDragging = false;
-        let dragStartX = 0;
-
-        // Função para garantir que as imagens estão carregadas
-        function waitForImages(callback) {
-            const images = track.querySelectorAll('img');
-            let imagesToLoad = images.length;
-            
-            if (imagesToLoad === 0) {
-                callback();
-                return;
-            }
-
-            const imageLoaded = () => {
-                imagesToLoad--;
-                if (imagesToLoad === 0) {
-                    callback();
-                }
-            };
-
-            images.forEach(img => {
-                if (img.complete) {
-                    imageLoaded();
-                } else {
-                    img.addEventListener('load', imageLoaded);
-                    img.addEventListener('error', imageLoaded); // Trata erros também
-                }
-            });
-        }
-
-        function initCarousel() {
-            // Força um reflow antes de iniciar
-            void track.offsetWidth;
-            
-            // Configurações iniciais
-            track.style.transition = 'transform 0.5s linear';
-            track.style.willChange = 'transform';
-            
-            // Inicia animação
-            animate();
-        }
-
-        function animate() {
-            if (isPaused || isDragging) {
-                animationId = requestAnimationFrame(animate);
-                return;
-            }
-            
-            position -= speed;
-            const itemWidth = items[0].offsetWidth + gap;
-            const totalWidth = itemWidth * items.length;
-            
-            if (position <= -totalWidth) {
-                position = 0;
-                track.style.transition = 'none';
-                track.style.transform = `translateX(${position}px)`;
-                void track.offsetWidth; // Força reflow
-                track.style.transition = 'transform 0.5s linear';
-            } else {
-                track.style.transform = `translateX(${position}px)`;
-            }
-            
-            animationId = requestAnimationFrame(animate);
-        }
-
-        // Touch events
-        track.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            isPaused = true;
-            dragStartX = e.touches[0].clientX;
-            track.style.transition = 'none';
-        }, { passive: true });
-
-        track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const touchX = e.touches[0].clientX;
-            const diff = touchX - dragStartX;
-            track.style.transform = `translateX(${position + diff}px)`;
-        }, { passive: false });
-
-        track.addEventListener('touchend', () => {
-            isDragging = false;
-            isPaused = false;
-            track.style.transition = 'transform 0.5s linear';
-            animate();
-        });
-
-        // Pausa no hover (apenas desktop)
-        carousel.addEventListener('mouseenter', () => {
-            if (!isMobile) isPaused = true;
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-            if (!isMobile) isPaused = false;
-        });
-
-        // Espera as imagens carregarem antes de iniciar
-        waitForImages(initCarousel);
-
-        // Redimensionamento
-        window.addEventListener('resize', () => {
-            cancelAnimationFrame(animationId);
-            position = 0;
-            track.style.transform = 'translateX(0)';
-            setTimeout(initCarousel, 100);
-        });
-    }
-
+document.addEventListener('DOMContentLoaded', function() {
     // ===== FAQ Accordion =====
     document.querySelectorAll('.faq-question').forEach(question => {
         question.addEventListener('click', () => {
@@ -271,9 +139,41 @@ window.addEventListener('load', function() {
         setIfExists('seconds', seconds);
     }
 
+    // ===== CARROSSÉIS INFINITOS (SOLUÇÃO DEFINITIVA) =====
+    function setupPerfectCarousel(carouselClass, speed = 0.5) {
+        const track = document.querySelector(`.${carouselClass}`);
+        if (!track) return;
+
+        // 1. Duplica os itens (5x para garantia)
+        const originalContent = track.innerHTML;
+        track.innerHTML = originalContent + originalContent + originalContent + originalContent + originalContent;
+
+        // 2. Configura animação
+        let position = 0;
+        const itemWidth = track.children[0].offsetWidth + parseInt(window.getComputedStyle(track.children[0]).marginRight);
+        const visibleItems = Math.ceil(track.parentElement.offsetWidth / itemWidth);
+        const resetPoint = itemWidth * (track.children.length / 5 - visibleItems);
+
+        function animate() {
+            position -= speed;
+            
+            // Reinicia antes do final
+            if (position <= -resetPoint) {
+                position = 0;
+            }
+            
+            track.style.transform = `translateX(${position}px)`;
+            requestAnimationFrame(animate);
+        }
+
+        // 3. Inicia animação
+        requestAnimationFrame(animate);
+    }
+
     // ===== Inicialização =====
-    setupImmersionCarousel(); // Inicia o carrossel da imersão
     animateCounters();
+    setupPerfectCarousel('company-track', 0.5);
+    setupPerfectCarousel('immersion-track', 0.5);
     
     if (document.getElementById('days')) {
         updateTimer();
