@@ -1,9 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // ===== CARROSSEL DA IMERSÃO (NOVO CÓDIGO) =====
+// Alteramos para window.onload para garantir que todos os recursos estão carregados
+window.onload = function() {
+    // ===== CARROSSEL DA IMERSÃO - CORRIGIDO =====
     function setupImmersionCarousel() {
         const carousel = document.querySelector('.immersion-carousel');
         if (!carousel) return;
 
+        // Garante que o carrossel está visível antes de iniciar
+        carousel.style.opacity = '1';
         const track = carousel.querySelector('.immersion-track');
         const items = track.querySelectorAll('.immersion-photo');
         
@@ -22,6 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
         let isPaused = false;
         let isDragging = false;
         let dragStartX = 0;
+
+        // Função de inicialização garantida
+        function initCarousel() {
+            // Força um cálculo de layout antes de iniciar
+            void track.offsetWidth;
+            
+            // Configuração inicial
+            track.style.transition = 'transform 0.5s linear';
+            track.style.willChange = 'transform';
+            
+            // Inicia animação
+            animate();
+        }
 
         function animate() {
             if (isPaused || isDragging) {
@@ -68,15 +84,15 @@ document.addEventListener('DOMContentLoaded', function() {
             animate();
         });
 
-        // Inicia animação
-        animate();
+        // Inicia animação com pequeno delay para garantir renderização
+        setTimeout(initCarousel, 50);
 
         // Redimensionamento
         window.addEventListener('resize', () => {
             cancelAnimationFrame(animationId);
             position = 0;
             track.style.transform = 'translateX(0)';
-            animate();
+            setTimeout(initCarousel, 50);
         });
     }
 
@@ -221,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== Inicialização =====
+    setupImmersionCarousel(); // Inicia o carrossel da imersão
     animateCounters();
     
     if (document.getElementById('days')) {
@@ -240,4 +257,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.slide-in-left, .slide-in-right, .rotate-3d').forEach(el => {
         animationObserver.observe(el);
     });
-});
+};
