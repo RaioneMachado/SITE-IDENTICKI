@@ -1,21 +1,21 @@
-// Alteramos para window.onload para garantir que todos os recursos estão carregados
-window.onload = function() {
-    // ===== CARROSSEL DA IMERSÃO - CORRIGIDO =====
+// Aguarda tudo estar completamente carregado, incluindo imagens
+window.addEventListener('load', function() {
+    // ===== CARROSSEL DA IMERSÃO - SOLUÇÃO DEFINITIVA =====
     function setupImmersionCarousel() {
         const carousel = document.querySelector('.immersion-carousel');
         if (!carousel) return;
 
-        // Garante que o carrossel está visível antes de iniciar
+        // Mostra o carrossel imediatamente
         carousel.style.opacity = '1';
         const track = carousel.querySelector('.immersion-track');
         const items = track.querySelectorAll('.immersion-photo');
         
-        // Configurações IDÊNTICAS ao carrossel de empresas
+        // Configurações do carrossel
         const isMobile = window.innerWidth <= 768;
         const speed = isMobile ? 0.4 : 0.7;
         const gap = 20;
         
-        // Clona os itens (igual ao de empresas)
+        // Clona os itens para efeito infinito
         items.forEach(item => {
             track.appendChild(item.cloneNode(true));
         });
@@ -26,12 +26,38 @@ window.onload = function() {
         let isDragging = false;
         let dragStartX = 0;
 
-        // Função de inicialização garantida
+        // Função para garantir que as imagens estão carregadas
+        function waitForImages(callback) {
+            const images = track.querySelectorAll('img');
+            let imagesToLoad = images.length;
+            
+            if (imagesToLoad === 0) {
+                callback();
+                return;
+            }
+
+            const imageLoaded = () => {
+                imagesToLoad--;
+                if (imagesToLoad === 0) {
+                    callback();
+                }
+            };
+
+            images.forEach(img => {
+                if (img.complete) {
+                    imageLoaded();
+                } else {
+                    img.addEventListener('load', imageLoaded);
+                    img.addEventListener('error', imageLoaded); // Trata erros também
+                }
+            });
+        }
+
         function initCarousel() {
-            // Força um cálculo de layout antes de iniciar
+            // Força um reflow antes de iniciar
             void track.offsetWidth;
             
-            // Configuração inicial
+            // Configurações iniciais
             track.style.transition = 'transform 0.5s linear';
             track.style.willChange = 'transform';
             
@@ -62,7 +88,7 @@ window.onload = function() {
             animationId = requestAnimationFrame(animate);
         }
 
-        // Touch events (igual ao de empresas)
+        // Touch events
         track.addEventListener('touchstart', (e) => {
             isDragging = true;
             isPaused = true;
@@ -84,15 +110,24 @@ window.onload = function() {
             animate();
         });
 
-        // Inicia animação com pequeno delay para garantir renderização
-        setTimeout(initCarousel, 50);
+        // Pausa no hover (apenas desktop)
+        carousel.addEventListener('mouseenter', () => {
+            if (!isMobile) isPaused = true;
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            if (!isMobile) isPaused = false;
+        });
+
+        // Espera as imagens carregarem antes de iniciar
+        waitForImages(initCarousel);
 
         // Redimensionamento
         window.addEventListener('resize', () => {
             cancelAnimationFrame(animationId);
             position = 0;
             track.style.transform = 'translateX(0)';
-            setTimeout(initCarousel, 50);
+            setTimeout(initCarousel, 100);
         });
     }
 
@@ -257,4 +292,4 @@ window.onload = function() {
     document.querySelectorAll('.slide-in-left, .slide-in-right, .rotate-3d').forEach(el => {
         animationObserver.observe(el);
     });
-};
+});
