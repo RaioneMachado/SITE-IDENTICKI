@@ -1,3 +1,9 @@
+/* Adicionar isto como PRIMEIRAS linhas do CSS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif; /* Substitui 'Arial' */
+}
 /* Reset e estilos globais */
 * {
     margin: 0;
@@ -84,16 +90,61 @@ nav ul li a:hover {
 }
 
 /* Hero Section */
+/* Hero Section - Versão Mega Dinâmica */
 .hero {
-    background-image: url('images/hero-social.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 600px;
-    display: flex;
-    align-items: center;
-    padding-top: 80px;
-    color: white;
     position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: flex-end; /* Alinha na base (mobile) */
+    justify-content: flex-end; /* Alinha à direita (desktop) */
+    overflow: hidden;
+    color: white;
+}
+
+/* Imagem de fundo */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/hero-social.jpg') center/cover no-repeat;
+    z-index: -1;
+}
+
+
+
+
+/* Versão Desktop */
+@media (min-width: 769px) {
+    .hero::after {
+        background: linear-gradient(to right, transparent 40%, rgba(0,0,0,0.8) 70%);
+    }
+    
+    .hero-content {
+        width: 50%;
+        padding-right: 5%;
+        padding-bottom: 5%;
+        text-align: right;
+    }
+}
+
+/* Versão Mobile */
+@media (max-width: 768px) {
+    .hero {
+        align-items: flex-end;
+        min-height: 500px;
+    }
+    
+    .hero-content {
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 80px;
+        text-align: center;
+    }
 }
 
 .hero::before {
@@ -264,270 +315,157 @@ nav ul li a:hover {
     }
 }
 
-/* Seção Como Funciona */
+/* Seção Como Funciona - Estilo Atualizado */
 .how-it-works {
-    padding: 80px 0;
-    background-color: white;
+    padding: 100px 0;
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
 }
 
-.section-title {
+.how-it-works::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(233, 102, 41, 0.05) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.how-it-works .section-title {
     text-align: center;
-    margin-bottom: 50px;
-    font-size: 36px;
+    margin-bottom: 15px;
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: beige;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.how-it-works .section-title .highlight {
     color: #E96629;
+    position: relative;
+}
+
+.how-it-works .section-title .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #E96629;
+    transform: skewX(-15deg);
 }
 
 .steps {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
 .step {
-    flex: 0 0 calc(33.333% - 30px);
+    flex: 0 0 300px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 15px;
+    padding: 40px 30px;
     text-align: center;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-    transition: transform 0.3s;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .step:hover {
     transform: translateY(-10px);
-}
-
-.step-icon {
-    font-size: 40px;
-    color: #E96629;
-    margin-bottom: 20px;
-}
-
-.step h3 {
-    margin-bottom: 15px;
-    font-size: 22px;
-    color: #333;
-}
-
-/* Seção Benefícios */
-.benefits {
-    padding: 80px 0;
-    background-color: #f9f9f9;
-}
-
-.benefits .section-title {
-    color: #E96629;
-}
-
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-}
-
-.benefit-item {
-    display: flex;
-    align-items: flex-start;
-    background-color: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-}
-
-.benefit-item:hover {
-    transform: translateY(-5px);
-}
-
-.benefit-icon {
-    font-size: 24px;
-    color: #E96629;
-    margin-right: 15px;
-    margin-top: 5px;
-}
-
-.benefit-item h3 {
-    color: #E96629;
-    margin-bottom: 10px;
-}
-
-/* Seção FAQ */
-.faq {
-    padding: 80px 0;
-    background-color: white;
-}
-
-.faq .section-title {
-    color: #E96629;
-}
-
-.faq-item {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: all 0.3s;
-}
-
-.faq-item:hover {
+    box-shadow: 0 15px 40px rgba(233, 102, 41, 0.2);
     border-color: #E96629;
 }
 
-.faq-question {
-    padding: 20px;
-    background-color: white;
-    cursor: pointer;
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(233, 102, 41, 0.1);
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-weight: 600;
-}
-
-.faq-question:hover {
-    background-color: #f9f9f9;
-}
-
-.faq-question .toggle-icon {
-    font-size: 20px;
-    transition: transform 0.3s;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 32px;
     color: #E96629;
+    border: 2px solid rgba(233, 102, 41, 0.3);
+    transition: all 0.3s ease;
 }
 
-.faq-answer {
-    padding: 0 20px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease;
-    background-color: white;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 20px;
-}
-
-.faq-item.active .toggle-icon {
-    transform: rotate(45deg);
-}
-
-/* Footer */
-footer {
-    background-color: #222;
+.step:hover .step-icon {
+    background: #E96629;
     color: white;
-    padding: 50px 0 20px;
+    transform: scale(1.1);
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+.step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: beige;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: relative;
 }
 
-.footer-logo img {
-    height: 40px;
+.step h3::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #E96629;
 }
 
-.footer-social a {
-    color: white;
-    font-size: 24px;
-    margin: 0 10px;
-    transition: color 0.3s;
-}
-
-.footer-social a:hover {
-    color: #E96629;
-}
-
-.footer-contact {
-    text-align: right;
-}
-
-.footer-contact i {
-    margin-right: 10px;
-    color: #E96629;
-}
-
-.copyright {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #444;
-    font-size: 14px;
+.step p {
+    color: #aaa;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* Responsividade */
 @media (max-width: 992px) {
-    .steps {
-        flex-direction: column;
-    }
-    
     .step {
-        flex: 0 0 100%;
-        margin-bottom: 20px;
-    }
-    
-    .benefits-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .footer-logo, .footer-social, .footer-contact {
-        margin-bottom: 20px;
-    }
-    
-    .footer-contact {
-        text-align: center;
+        flex: 0 0 calc(50% - 20px);
     }
 }
 
 @media (max-width: 768px) {
-    .hero {
-        height: 500px;
+    .how-it-works {
+        padding: 60px 0;
     }
     
-    .hero h1 {
-        font-size: 36px;
+    .how-it-works .section-title {
+        font-size: 2rem;
     }
     
-    .hero p {
-        font-size: 18px;
+    .steps {
+        gap: 20px;
     }
     
-    nav ul {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .company-logos img {
-        height: 40px;
-        margin: 10px 15px;
-    }
-    
-    nav.active ul {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        padding: 20px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    nav.active ul li {
-        margin: 10px 0;
+    .step {
+        flex: 0 0 100%;
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
+
 /* Seção Mentor Dinâmica */
 .mentor-section {
     padding: 100px 0;
@@ -1784,4 +1722,563 @@ body::before {
     display: flex;
     will-change: transform;
     backface-visibility: hidden; /* Melhora a renderização */
+}
+/* FORÇA imagens coloridas em todos os estados */
+.company-track .company-logo img,
+.company-track .company-logo:hover img,
+.company-track .js-clone img,
+.company-track .js-clone:hover img {
+    filter: grayscale(0%) !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Estilos para o Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
+
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Esconde a imagem mobile por padrão */
+.mobile-img {
+    display: none;
+}
+
+/* Efeito de sobreposição para melhor legibilidade */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+/* Versão Mobile */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 500px;
+    }
+    
+    .desktop-img {
+        display: none;
+    }
+    
+    .mobile-img {
+        display: block;
+    }
+}
+
+
+/* Reset e estilos globais - FONTE ATUALIZADA */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; /* Fonte clean igual ao exemplo */
+}
+
+/* Hero Section - MANTIDO O LAYOUT ORIGINAL, APENAS FONTES SIMPLIFICADAS */
+@media (max-width: 768px) {
+  .hero {
+    /* TUDO MANTIDO IGUAL (posição, dimensões, fundo) */
+    height: 100vh;
+    min-height: 500px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0;
+    margin: 0;
+    background: url('sua-imagem-mobile.jpg') center/cover no-repeat;
+    position: relative;
+  }
+
+  .hero-content {
+    /* POSICIONAMENTO ORIGINAL PRESERVADO */
+    width: 100%;
+    padding: 0 15px 0 !important;
+    margin: 0 !important;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* TÍTULO SIMPLIFICADO */
+  .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 5px !important;
+    line-height: 1.3;
+    color: #fff; /* Branco para contraste */
+    font-weight: 600; /* Semi-bold como no exemplo */
+    /* REMOVIDOS: text-shadow, transform, background */
+  }
+
+  /* SUBTÍTULO SIMPLIFICADO */
+  .hero-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 10px !important;
+    color: rgba(255,255,255,0.9); /* Branco com leve transparência */
+    font-weight: 400; /* Regular */
+    /* REMOVIDOS: text-shadow, transform */
+  }
+
+  /* BOTÃO DINÂMICO (ÚNICO ELEMENTO COM EFEITO) */
+  .btn-pulse {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    background-color: #E96629;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-bottom: 10px !important;
+  }
+
+  .btn-pulse:hover {
+    background-color: #d45b22;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .hero-scroll-indicator {
+    /* MANTIDO O POSICIONAMENTO ORIGINAL */
+    position: absolute;
+    bottom: 5px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+  }
+}
+
+/* REMOVIDOS TODOS OS EFEITOS EXTRAS */
+.hero::before,
+.hero::after,
+.hero-content::before,
+.hero-content::after {
+    display: none !important;
+}
+/* Remove TODOS os quadros de fundo */
+.hero::before,
+.hero::after,
+.hero-content::before,
+.hero-content::after {
+    display: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    content: none !important;
+}
+
+/* Garante que o fundo fique limpo */
+.hero {
+    background-color: transparent !important;
+}
+
+.hero {
+    background: url('imagens/PHOTO-2025-04-02-15-13-00.jpg') center/cover no-repeat;
+}
+
+/* Para telas menores (celulares) */
+@media (max-width: 768px) {
+    .hero {
+        background: url('imagens/PHOTO-2025-04-02-15-16-40.jpg') center/cover no-repeat !important;
+    }
+}
+
+/* ========== SEÇÃO BENEFÍCIOS - VERSÃO DINÂMICA ========== */
+.benefits {
+    padding: 100px 0;
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.benefits::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 20%, rgba(233, 102, 41, 0.05) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.benefits .section-title {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: beige;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.benefits .section-title .highlight {
+    color: #E96629;
+    position: relative;
+}
+
+.benefits .section-title .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #E96629;
+    transform: skewX(-15deg);
+}
+
+.benefits-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.benefit-item {
+    flex: 0 0 300px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 15px;
+    padding: 40px 30px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.benefit-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(233, 102, 41, 0.2);
+    border-color: #E96629;
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(233, 102, 41, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 32px;
+    color: #E96629;
+    border: 2px solid rgba(233, 102, 41, 0.3);
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover .benefit-icon {
+    background: #E96629;
+    color: white;
+    transform: scale(1.1);
+}
+
+.benefit-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: beige;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    position: relative;
+}
+
+.benefit-item h3::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #E96629;
+}
+
+.benefit-item p {
+    color: #aaa;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .benefit-item {
+        flex: 0 0 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .benefits {
+        padding: 60px 0;
+    }
+    
+    .benefits .section-title {
+        font-size: 2rem;
+    }
+    
+    .benefits-grid {
+        gap: 20px;
+    }
+    
+    .benefit-item {
+        flex: 0 0 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+/* ========== SEÇÃO FAQ ========== */
+.faq {
+    padding: 100px 0;
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #333;
+}
+
+.faq::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(233, 102, 41, 0.1) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.faq .section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 50px;
+    color: beige;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.faq .section-title .highlight {
+    color: #E96629;
+    position: relative;
+}
+
+.faq .section-title .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #E96629;
+    transform: skewX(-15deg);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: #E96629;
+    box-shadow: 0 5px 20px rgba(233, 102, 41, 0.1);
+}
+
+.faq-question {
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(40, 40, 40, 0.6);
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(233, 102, 41, 0.1);
+}
+
+.faq-question span:first-child {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: beige;
+    flex: 1;
+}
+
+.toggle-icon {
+    font-size: 1.5rem;
+    color: #E96629;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 25px;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    background: rgba(20, 20, 20, 0.8);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 25px;
+}
+
+.faq-item.active .toggle-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer p {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* ========== RODAPÉ ========== */
+footer {
+    background: #0a0a0a;
+    padding: 70px 0 30px;
+    position: relative;
+    border-top: 1px solid #333;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.footer-logo img {
+    height: 50px;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.footer-logo img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.footer-social {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-social a {
+    color: beige;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #E96629;
+    transform: translateY(-5px);
+}
+
+.footer-contact {
+    text-align: right;
+}
+
+.footer-contact p {
+    color: #aaa;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.footer-contact i {
+    color: #E96629;
+    font-size: 1.2rem;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .footer-contact {
+        text-align: center;
+    }
+    
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq {
+        padding: 60px 0;
+    }
+    
+    .faq .section-title {
+        font-size: 2rem;
+    }
+    
+    .faq-question {
+        padding: 20px;
+    }
+    
+    .faq-question span:first-child {
+        font-size: 1rem;
+    }
 }
