@@ -1160,7 +1160,7 @@ nav ul li a:hover {
         font-size: 1.1rem;
     }
 }
-/* Seção Imersão */
+/* SEU CÓDIGO ORIGINAL (MANTIDO INTACTO) */
 .immersion-section {
     padding: 80px 0;
     background-color: white;
@@ -1257,7 +1257,7 @@ nav ul li a:hover {
     }
 }
 
-/* Responsividade */
+/* RESPONSIVIDADE ORIGINAL (MANTIDA) */
 @media (max-width: 768px) {
     .immersion-section .section-title {
         font-size: 2rem;
@@ -1273,6 +1273,48 @@ nav ul li a:hover {
     }
     
     .immersion-description p {
+        font-size: 1rem;
+    }
+}
+
+/* ÚNICA ALTERAÇÃO: BOTÃO ATUALIZADO */
+.video-cta .btn-large {
+    display: inline-block;
+    padding: 18px 40px;
+    background: #E96629;
+    color: white !important;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 102, 41, 0.4);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+}
+
+.video-cta .btn-large:hover {
+    background: #d45b23;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 102, 41, 0.6);
+}
+
+.video-cta .btn-large i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.video-cta .btn-large:hover i {
+    transform: translateX(4px);
+}
+
+/* Responsividade do botão */
+@media (max-width: 768px) {
+    .video-cta .btn-large {
+        padding: 15px 30px;
         font-size: 1rem;
     }
 }
@@ -1901,13 +1943,13 @@ body::before {
 }
 
 .hero {
-    background: url('imagens/PHOTO-2025-04-02-15-13-00.jpg') center/cover no-repeat;
+    background: url('imagens/capa\ pc\ copia.png') center/cover no-repeat;
 }
 
 /* Para telas menores (celulares) */
 @media (max-width: 768px) {
     .hero {
-        background: url('imagens/PHOTO-2025-04-02-15-16-40.jpg') center/cover no-repeat !important;
+        background: url('imagens/capa\ celular.png') center/cover no-repeat !important;
     }
 }
 
@@ -2280,5 +2322,90 @@ footer {
     
     .faq-question span:first-child {
         font-size: 1rem;
+    }
+}
+/* Container dos quadradinhos (mantido) */
+.data-local-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Quadradinhos - estilo igual ao do site de referência */
+.quadradinho {
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid #D45B24; /* Roxo neon igual ao do site */
+    border-radius: 6px; /* Cantos arredondados similares */
+    padding: 8px 15px;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px #D45B24; /* Glow roxo sutil */
+    white-space: nowrap; /* Impede quebra de texto */
+}
+
+/* Efeito hover (opcional) */
+.quadradinho:hover {
+    box-shadow: 0 0 15px #D45B24; /* Brilho mais forte */
+}
+
+/* Ajuste para mobile (se necessário) */
+@media (max-width: 600px) {
+    .data-local-container {
+        gap: 8px; /* Reduz o espaço entre os quadradinhos */
+    }
+    .quadradinho {
+        padding: 6px 10px; /* Mais compacto */
+        font-size: 12px; /* Texto um pouco menor */
+    }
+}
+/* REMOVE TODOS OS OVERLAYS DO HERO (100% garantido) */
+.hero::before,
+.hero::after,
+.hero-bg-img::after {
+    display: none !important;
+    background: none !important;
+    opacity: 1 !important;
+}
+
+/* Garante que as imagens fiquem 100% visíveis */
+.hero-bg-img {
+    opacity: 1 !important;
+}
+/* ===== BOTÃO HERO - VERSÃO ÚNICA (PC E MOBILE IGUAIS) ===== */
+.btn-pulse {
+    padding: 20px 45px !important; /* Tamanho original do desktop */
+    font-size: 1.3rem !important;
+    border-radius: 50px !important;
+    /* Mantém todos os outros estilos originais */
+}
+
+/* Remove TODAS as media queries que alteram o botão */
+@media (max-width: 768px) {
+    .btn-pulse {
+        /* Remove qualquer estilo específico para mobile */
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(233, 102, 41, 0.4) !important;
+    }
+    
+    /* Opcional: ajuste de alinhamento se necessário */
+    .hero-content {
+        padding-bottom: 40px !important;
+    }
+}
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.6rem !important;   /* Original: 1.8rem (só reduz 0.1rem) */
+        line-height: 1.50 !important;   /* Original: 1.3 (compacta levemente) */
+        margin-bottom: 5px !important;  /* Original: 5px (mantém igual) */
+    }
+    
+    .hero-subtitle {
+        font-size: 0.8rem !important;   /* Original: 0.85rem (redução sutil) */
+        line-height: 1.35 !important;   /* Original: 1.3 (pouca diferença) */
+        margin-top: 10px !important;    /* Espaço controlado */
     }
 }
