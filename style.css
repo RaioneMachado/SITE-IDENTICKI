@@ -1943,13 +1943,13 @@ body::before {
 }
 
 .hero {
-    background: url('imagens/capa\ pc\ copia.png') center/cover no-repeat;
+    background: url('imagens/Identicki\ Land\ Page.png') center/cover no-repeat;
 }
 
 /* Para telas menores (celulares) */
 @media (max-width: 768px) {
     .hero {
-        background: url('imagens/capa\ celular.png') center/cover no-repeat !important;
+        background: url('imagens/terceiro.png') center/cover no-repeat !important;
     }
 }
 
