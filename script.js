@@ -348,3 +348,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configura o listener de redimensionamento para mobile images
     window.addEventListener('resize', setupMobileImages);
 });
+// Efeito ao aparecer na tela (scroll reveal simples)
+document.addEventListener("DOMContentLoaded", function () {
+    const influenceImage = document.querySelector(".influence-image");
+  
+    if (influenceImage) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            influenceImage.classList.add("show");
+          }
+        });
+      }, {
+        threshold: 0.5,
+      });
+  
+      observer.observe(influenceImage);
+    }
+  });
+  

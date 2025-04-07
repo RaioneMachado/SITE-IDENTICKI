@@ -467,6 +467,7 @@ nav ul li a:hover {
 }
 
 /* Seção Mentor Dinâmica */
+
 .mentor-section {
     padding: 100px 0;
     background-color: #fff8f5;
@@ -743,6 +744,7 @@ nav ul li a:hover {
         font-size: 2.5rem;
     }
 }
+
 /* Oferta Especial - Versão Premium */
 .special-offer {
     padding: 100px 0;
@@ -1022,6 +1024,7 @@ nav ul li a:hover {
 }
 
 /* Seção de Vídeos */
+
 .videos-section {
     padding: 80px 0;
     background-color: #f9f9f9;
@@ -2891,3 +2894,345 @@ footer {
       font-size: 0.8rem;
     }
   }
+
+/* SEÇÃO IMAGEM DE INFLUÊNCIA */
+.influence-power-section {
+    padding: 120px 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+  }
+  
+  .influence-power-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 70%, rgba(233, 102, 41, 0.1) 0%, transparent 60%);
+    z-index: 0;
+  }
+  
+  .influence-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .impact-phrase {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+  
+  .power-highlight {
+    margin: 60px 0 40px;
+  }
+  
+  .power-highlight p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .power-highlight h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #E96629;
+    margin: 0;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .power-highlight h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #E96629;
+    transform: skewX(-15deg);
+  }
+  
+  .power-cta {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(90deg, #E96629, #ff7b38);
+    color: white;
+    padding: 20px 45px;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(233, 102, 41, 0.4);
+    margin-top: 30px;
+  }
+  
+  .power-cta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 102, 41, 0.6);
+  }
+  
+  .power-cta i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .power-cta:hover i {
+    transform: translateX(5px);
+  }
+  
+  /* RESPONSIVIDADE */
+  @media (max-width: 992px) {
+    .impact-phrase {
+      font-size: 1.5rem;
+    }
+    
+    .power-highlight h2 {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .influence-power-section {
+      padding: 80px 0;
+    }
+    
+    .impact-phrase {
+      font-size: 1.3rem;
+      padding: 0 20px;
+    }
+    
+    .power-highlight h2 {
+      font-size: 2.2rem;
+    }
+    
+    .power-cta {
+      padding: 16px 35px;
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .impact-phrase {
+      font-size: 1.1rem;
+    }
+    
+    .power-highlight h2 {
+      font-size: 1.8rem;
+    }
+    
+    .power-highlight p {
+      font-size: 1rem;
+    }
+  }
+  .influence-power-section {
+    position: relative;
+    overflow: hidden;
+    padding: 50px;
+    color: white;
+  }
+  
+  .influence-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .influence-text {
+    flex: 1 1 300px;
+  }
+  
+  .influence-image {
+    flex: 1 1 300px;
+  }
+  
+  .influence-image img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* Responsividade */
+  .desktop-only {
+    display: block;
+  }
+  
+  .mobile-only {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none !important;
+    }
+    .mobile-only {
+      display: block !important;
+      margin: 20px 0;
+    }
+  }
+  /* Estilo herdado da seção mentor para imagem */
+.estilo-mentor {
+    flex: 0 0 45%;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 20px 20px 0px rgba(233, 102, 41, 0.2);
+    transform: rotate(-2deg);
+    transition: all 0.5s ease;
+  }
+  
+  .estilo-mentor:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 25px 25px 0px rgba(233, 102, 41, 0.3);
+  }
+  
+  .estilo-mentor img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .estilo-mentor:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* Responsivo */
+  @media (max-width: 992px) {
+    .estilo-mentor {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .estilo-mentor {
+      width: 100%;
+    }
+  }
+/* Estilo para imagem da seção Imagem de Influência */
+.influence-image {
+    flex: 0 0 45%;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 20px 20px 0px rgba(233, 102, 41, 0.2);
+    transform: rotate(-2deg);
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+  
+  .influence-image:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 25px 25px 0px rgba(233, 102, 41, 0.3);
+  }
+  
+  .influence-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .influence-image:hover img {
+    transform: scale(1.05);
+  }
+  .influence-power-section {
+    background: transparent !important;
+  }
+  
+  .container {
+    background: transparent !important;
+  }
+  .turquoise-glow {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #4EA1A0;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    animation: pulseGlow 4s ease-in-out infinite;
+    z-index: 0;
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+  }
+      
+/* Brilho turquoise no lado direito da seção */
+.influence-power-section::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -50px; /* posiciona fora um pouco pra parecer brilho vindo do lado */
+    transform: translateY(-50%);
+    width: 120px;
+    height: 120px;
+    background: #4EA1A0;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    z-index: 1;
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  /* Brilho turquoise no lado direito da seção de vídeos */
+.videos-section::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%);
+    width: 130px;
+    height: 130px;
+    background: #4EA1A0;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    z-index: 1;
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+/* Luz laranja maior no lado esquerdo da seção de vídeos */
+.videos-section::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: -100px;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    background: #E96629;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 1;
+    animation: pulseGlow 6s ease-in-out infinite;
+}
