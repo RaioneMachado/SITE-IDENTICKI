@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 // Fecha o menu mobile se estiver aberto
-                if (document.querySelector('nav').classList.contains('active')) {
+                const nav = document.querySelector('nav');
+                if (nav && nav.classList.contains('active')) {
                     toggleMobileMenu();
                 }
             }
@@ -37,22 +38,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // 3. Header scroll effect
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        header.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0, 0, 0, 0.2)' : '0 2px 10px rgba(0, 0, 0, 0.1)';
-    });
+    const header = document.querySelector('header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            header.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0, 0, 0, 0.2)' : '0 2px 10px rgba(0, 0, 0, 0.1)';
+        });
+    }
     
     // 4. Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
     
     function toggleMobileMenu() {
         const nav = document.querySelector('nav');
+        if (!nav) return;
+        
         nav.classList.toggle('active');
         
         const icon = mobileMenuBtn.querySelector('i');
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-times');
+        if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
     }
     
     // 5. Fecha o menu ao clicar fora
@@ -60,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const nav = document.querySelector('nav');
         const mobileBtn = document.querySelector('.mobile-menu-btn');
         
-        if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== mobileBtn && !mobileBtn.contains(e.target)) {
+        if (nav && nav.classList.contains('active') && !nav.contains(e.target) && e.target !== mobileBtn && (!mobileBtn || !mobileBtn.contains(e.target))) {
             toggleMobileMenu();
         }
     });
@@ -68,9 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 6. Carrossel Infinito Otimizado para Mobile
     function setupInfiniteCarousel(trackSelector, itemSelector, duration = 20) {
         const track = document.querySelector(trackSelector);
-        const items = document.querySelectorAll(`${trackSelector} ${itemSelector}`);
+        if (!track) return;
         
-        if (!track || items.length === 0) return;
+        const items = document.querySelectorAll(`${trackSelector} ${itemSelector}`);
+        if (items.length === 0) return;
         
         // Remove clones existentes para evitar duplicação
         track.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
@@ -181,6 +191,160 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Inicia tudo
+    // 8. Countdown Timer
+    function setupCountdown() {
+        // Configura a data final do countdown (31 de abril de 2025 às 23:59)
+        const countdownDate = new Date('April 31, 2025 23:59:59').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Cálculos para dias, horas, minutos e segundos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Atualiza os elementos se existirem
+            const updateElement = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value.toString().padStart(2, '0');
+            };
+
+            updateElement('countdown-days', days);
+            updateElement('countdown-hours', hours);
+            updateElement('countdown-minutes', minutes);
+            updateElement('countdown-seconds', seconds);
+
+            // Se o contador chegar a zero
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                const container = document.querySelector('.countdown-container');
+                if (container) {
+                    container.innerHTML = '<div class="countdown-ended">OFERTA ENCERRADA!</div>';
+                }
+            }
+        }
+
+        // Atualiza o contador a cada 1 segundo
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Executa imediatamente para evitar delay inicial
+    }
+    
+    // 9. Animações de elementos
+    function setupAnimations() {
+        // Animação de digitação no texto emocional
+        const emotionalLead = document.querySelector('.emotional-lead .highlight-text');
+        if (emotionalLead) {
+            const originalText = emotionalLead.textContent;
+            emotionalLead.textContent = '';
+            
+            let i = 0;
+            const typingEffect = setInterval(() => {
+                if (i < originalText.length) {
+                    emotionalLead.textContent += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typingEffect);
+                }
+            }, 50);
+        }
+
+        // Animação dos cards ao aparecer na tela
+        const cards = document.querySelectorAll('.t-card');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            observer.observe(card);
+        });
+
+        // Efeito hover nos cards
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px)';
+                this.style.boxShadow = '0 20px 40px rgba(233, 102, 41, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+            });
+        });
+
+        // Efeito nas imagens antes/depois
+        const imageWrappers = document.querySelectorAll('.image-wrapper');
+        imageWrappers.forEach(wrapper => {
+            wrapper.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleY = (x - centerX) / 20;
+                const angleX = (centerY - y) / 20;
+                
+                this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
+            
+            wrapper.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    }
+
+    // 10. Mobile Images Setup
+    function setupMobileImages() {
+        const wrappers = document.querySelectorAll('.image-wrapper');
+
+        wrappers.forEach(wrapper => {
+            const clone = wrapper.cloneNode(true);
+            wrapper.parentNode.replaceChild(clone, wrapper);
+        });
+
+        if (window.innerWidth <= 768) {
+            const newWrappers = document.querySelectorAll('.image-wrapper');
+
+            newWrappers.forEach(wrapper => {
+                wrapper.addEventListener('touchstart', function() {
+                    this.style.zIndex = '3';
+                    this.style.transform = 'translateX(0) rotate(0deg) scale(1.05)';
+                });
+
+                wrapper.addEventListener('touchend', function() {
+                    if (this.classList.contains('before-img')) {
+                        this.style.transform = 'translateX(10%) rotate(-5deg)';
+                    } else {
+                        this.style.transform = 'translateX(-10%) rotate(5deg)';
+                    }
+                    this.style.zIndex = this.classList.contains('before-img') ? '2' : '1';
+                });
+            });
+        }
+    }
+
+    // Inicia todas as funções
     initCarousels();
+    setupCountdown();
+    setupAnimations();
+    setupMobileImages();
+
+    // Configura o listener de redimensionamento para mobile images
+    window.addEventListener('resize', setupMobileImages);
 });

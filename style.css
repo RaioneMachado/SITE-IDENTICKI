@@ -2409,3 +2409,485 @@ footer {
         margin-top: 10px !important;    /* Espaço controlado */
     }
 }
+/* COUNTDOWN FIXO NO TOPO */
+.countdown-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(135deg, #5CBBB8 0%, #3A8A87 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  
+  .countdown-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .countdown-header {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .countdown-header i {
+    margin-right: 8px;
+  }
+  
+  .countdown-timer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 3px;
+  }
+  
+  .countdown-item span:first-child {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 3px 8px;
+    min-width: 40px;
+    text-align: center;
+  }
+  
+  .countdown-label {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  
+  .countdown-separator {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 2px;
+    align-self: flex-end;
+    padding-bottom: 5px;
+  }
+  
+  /* Ajuste para o conteúdo não ficar escondido */
+  body {
+    padding-top: 60px;
+  }
+  
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .countdown-container {
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px 10px;
+    }
+    
+    .countdown-item span:first-child {
+      font-size: 1.1rem;
+      min-width: 35px;
+    }
+    
+    body {
+      padding-top: 90px;
+    }
+  }
+/* SEÇÃO DE TRANSFORMAÇÃO - VERSÃO FINAL */
+.transformation-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+  }
+  
+  .transformation-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(233, 102, 41, 0.08) 0%, transparent 50%);
+    z-index: 0;
+  }
+  
+  /* TÍTULO PRINCIPAL - IDENTIDADE VISUAL */
+  .transformation-section .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto 50px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .transformation-section .section-title .highlight {
+    color: #E96629;
+    position: relative;
+  }
+  
+  .transformation-section .section-title .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #E96629;
+    transform: skewX(-15deg);
+  }
+  
+  /* CONTEÚDO EMOCIONAL */
+  .emotional-text {
+    max-width: 800px;
+    margin: 0 auto 60px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .emotional-lead, .emotional-climax {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 30px;
+    line-height: 1.4;
+  }
+  
+  .emotional-text p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+  
+  .highlight-text {
+    color: #E96629;
+    position: relative;
+  }
+  
+  .highlight-text::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: currentColor;
+    transform: skewX(-15deg);
+    opacity: 0.7;
+  }
+  
+  /* COMPARAÇÃO ANTES/DEPOIS */
+  .before-after-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 60px auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .before-after {
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+  }
+  
+  .image-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+    transition: all 0.4s ease;
+  }
+  
+  .image-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(233, 102, 41, 0.2);
+  }
+  
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 350px;
+    object-fit: cover;
+  }
+  
+  .label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(233, 102, 41, 0.9);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  /* STICKER DE RESULTADO */
+  .result-sticker {
+    background: linear-gradient(135deg, #E96629 0%, #ff7b38 100%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 20px rgba(233, 102, 41, 0.4);
+    display: inline-block;
+    margin: 25px auto 0;
+    position: relative;
+    z-index: 3;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .result-sticker span:first-child {
+    font-size: 2.5rem;
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .result-sticker span:last-child {
+    font-size: 0.9rem;
+    display: block;
+    letter-spacing: 2px;
+    opacity: 0.9;
+  }
+  
+  .result-sticker:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 102, 41, 0.6);
+    transition: all 0.3s ease;
+  }
+  
+  /* CARDS DE TRANSFORMAÇÃO */
+  .transformation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 80px auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .t-card {
+    background: rgba(30, 30, 30, 0.7);
+    border-radius: 15px;
+    padding: 40px 30px;
+    text-align: center;
+    border: 1px solid #333;
+    backdrop-filter: blur(5px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .t-card:hover {
+    transform: translateY(-10px);
+    border-color: #E96629;
+    box-shadow: 0 15px 40px rgba(233, 102, 41, 0.2);
+  }
+  
+  .t-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #E96629;
+    background: rgba(233, 102, 41, 0.1);
+    border-radius: 50%;
+    border: 2px solid rgba(233, 102, 41, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .t-card:hover .t-icon {
+    background: #E96629;
+    color: white;
+    transform: rotate(15deg) scale(1.1);
+  }
+  
+  .t-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .t-card h3::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: #E96629;
+  }
+  
+  .t-card p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #aaa;
+    line-height: 1.7;
+  }
+  
+  /* BOTÃO CTA */
+  .transformation-cta {
+    text-align: center;
+    margin-top: 60px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(90deg, #E96629, #ff7b38);
+    color: white;
+    padding: 20px 45px;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(233, 102, 41, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .cta-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 102, 41, 0.6);
+  }
+  
+  .cta-btn:hover::before {
+    left: 100%;
+  }
+  
+  .cta-btn i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .cta-btn:hover i {
+    transform: translateX(5px);
+  }
+  
+  /* RESPONSIVIDADE */
+  @media (max-width: 992px) {
+    .transformation-section .section-title {
+      font-size: 2.5rem;
+    }
+    
+    .emotional-lead, .emotional-climax {
+      font-size: 1.5rem;
+    }
+    
+    .transformation-cards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .transformation-section {
+      padding: 70px 0;
+    }
+    
+    .transformation-section .section-title {
+      font-size: 2rem;
+      width: 90%;
+    }
+    
+    .emotional-text {
+      padding: 0 20px;
+    }
+    
+    .emotional-text p {
+      font-size: 1rem;
+    }
+    
+    .before-after {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+    
+    .t-card {
+      padding: 30px 20px;
+    }
+    
+    .cta-btn {
+      padding: 16px 35px;
+      font-size: 1rem;
+      width: 90%;
+      max-width: 350px;
+    }
+    
+    .result-sticker {
+      padding: 12px 25px;
+      margin-top: 20px;
+    }
+    
+    .result-sticker span:first-child {
+      font-size: 2rem;
+    }
+    
+    .result-sticker span:last-child {
+      font-size: 0.8rem;
+    }
+  }
