@@ -2,39 +2,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurações globais
     const config = {
       carousels: [
-        { selector: '.company-track', item: '.company-logo', mobileDuration: 30, desktopDuration: 20 },
-        { selector: '.immersion-track', item: '.immersion-photo', mobileDuration: 30, desktopDuration: 20 }
+        { 
+          selector: '.company-track', 
+          itemSelector: '.company-logo', 
+          mobileSpeed: 30, 
+          desktopSpeed: 20 
+        },
+        { 
+          selector: '.immersion-track', 
+          itemSelector: '.immersion-photo', 
+          mobileSpeed: 30, 
+          desktopSpeed: 20 
+        }
       ],
       countdownEndDate: 'April 30, 2025 23:59:59'
     };
   
-    // 1. FAQ Accordion - Versão Ultra Leve
+    // 1. FAQ Accordion - Versão Otimizada
     const setupFAQ = () => {
       const faqItems = document.querySelectorAll('.faq-item');
-      if (!faqItems.length) return;
-  
+      
       faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         if (!question) return;
   
         question.addEventListener('click', () => {
-          const isActive = item.classList.toggle('active');
+          const wasActive = item.classList.contains('active');
           
-          // Fecha outros itens se este foi aberto
-          if (isActive) {
-            faqItems.forEach(otherItem => {
-              if (otherItem !== item && otherItem.classList.contains('active')) {
-                otherItem.classList.remove('active');
-              }
-            });
+          // Fecha todos os itens primeiro
+          faqItems.forEach(otherItem => {
+            otherItem.classList.remove('active');
+          });
+  
+          // Abre o item clicado se não estava ativo
+          if (!wasActive) {
+            item.classList.add('active');
           }
         });
       });
     };
   
-    // 2. Smooth Scrolling Otimizado
+    // 2. Smooth Scrolling - Com Debounce
     const setupSmoothScrolling = () => {
-      document.addEventListener('click', function(e) {
+      const handleClick = (e) => {
         const anchor = e.target.closest('a[href^="#"]');
         if (!anchor || anchor.getAttribute('href') === '#') return;
   
@@ -49,18 +59,17 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleMobileMenu();
           }
   
-          // Scroll suave com fallback
-          if ('scrollBehavior' in document.documentElement.style) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-          }
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
-      }, { passive: true }); // Melhora performance com passive: true
+      };
+  
+      document.addEventListener('click', handleClick, { passive: true });
     };
   
-    // 3. Header Scroll Effect - Debounced
+    // 3. Header Scroll Effect - Com Throttle
     const setupHeaderScrollEffect = () => {
       const header = document.querySelector('header');
       if (!header) return;
@@ -69,33 +78,36 @@ document.addEventListener('DOMContentLoaded', function() {
       let ticking = false;
   
       const updateHeader = () => {
-        header.style.boxShadow = lastScrollY > 50 ? 
-          '0 2px 10px rgba(0, 0, 0, 0.2)' : 
-          '0 2px 10px rgba(0, 0, 0, 0.1)';
+        header.style.boxShadow = lastScrollY > 50 
+          ? '0 2px 10px rgba(0, 0, 0, 0.2)' 
+          : '0 2px 10px rgba(0, 0, 0, 0.1)';
         ticking = false;
       };
   
-      window.addEventListener('scroll', () => {
+      const handleScroll = () => {
         lastScrollY = window.scrollY;
         if (!ticking) {
           window.requestAnimationFrame(updateHeader);
           ticking = true;
         }
-      }, { passive: true });
+      };
+  
+      window.addEventListener('scroll', handleScroll, { passive: true });
     };
   
-    // 4. Mobile Menu - Versão Otimizada
+    // 4. Mobile Menu - Versão Melhorada
+    let menuOpen = false;
     const toggleMobileMenu = () => {
       const nav = document.querySelector('nav');
       if (!nav) return;
   
-      const isOpening = !nav.classList.contains('active');
-      nav.classList.toggle('active');
-  
-      // Animações mais suaves
-      if (isOpening) {
+      menuOpen = !menuOpen;
+      
+      if (menuOpen) {
+        nav.classList.add('active');
         document.body.style.overflow = 'hidden';
       } else {
+        nav.classList.remove('active');
         document.body.style.overflow = '';
       }
   
@@ -115,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // Fecha o menu ao clicar em um link ou fora
       document.addEventListener('click', (e) => {
-        const nav = document.querySelector('nav');
-        if (!nav || !nav.classList.contains('active')) return;
+        if (!menuOpen) return;
   
-        const isClickInsideNav = nav.contains(e.target);
+        const nav = document.querySelector('nav');
+        const isClickInsideNav = nav?.contains(e.target);
         const isClickOnButton = e.target.closest('.mobile-menu-btn');
   
         if (!isClickInsideNav && !isClickOnButton) {
@@ -127,104 +139,118 @@ document.addEventListener('DOMContentLoaded', function() {
       }, { passive: true });
     };
   
-    // 5. Carrossel Infinito - Versão Super Otimizada
-    const setupInfiniteCarousel = (trackSelector, itemSelector, duration) => {
-      const track = document.querySelector(trackSelector);
-      if (!track) return;
+    // 5. Carrossel Infinito - Versão Corrigida para Mobile
+    const setupCarousel = (trackElement, itemSelector, speed) => {
+      const items = trackElement.querySelectorAll(itemSelector);
+      if (items.length < 2) return;
   
-      // Limpa clones existentes
-      track.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
+      // Remove clones existentes
+      trackElement.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
   
-      // Cria clones apenas se necessário
-      const items = document.querySelectorAll(`${trackSelector} ${itemSelector}`);
-      if (items.length < 5) { // Apenas para carrosseis com poucos itens
-        items.forEach(item => {
-          const clone = item.cloneNode(true);
-          clone.classList.add('js-carousel-clone');
-          track.appendChild(clone);
-        });
-      }
+      // Duplica itens para criar efeito contínuo
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.classList.add('js-carousel-clone');
+        trackElement.appendChild(clone);
+      });
   
-      // Configura animação
-      const firstItem = items[0];
-      if (!firstItem) return;
+      // Função para calcular e configurar a animação
+      const configureAnimation = () => {
+        const firstItem = items[0];
+        if (!firstItem) return;
+        
+        // Garante que as imagens estão carregadas
+        if (firstItem.querySelector('img') && !firstItem.querySelector('img').complete) {
+          firstItem.querySelector('img').addEventListener('load', configureAnimation);
+          return;
+        }
   
-      const itemWidth = firstItem.offsetWidth;
-      const gap = parseInt(window.getComputedStyle(track).gap) || 20;
-      const totalWidth = (itemWidth + gap) * items.length;
+        const itemWidth = firstItem.offsetWidth;
+        const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
+        const totalWidth = (itemWidth + gap) * items.length;
   
-      track.style.setProperty('--carousel-duration', `${duration}s`);
-      track.style.setProperty('--carousel-translate', `-${totalWidth}px`);
+        trackElement.style.setProperty('--carousel-duration', `${speed}s`);
+        trackElement.style.setProperty('--carousel-translate', `-${totalWidth}px`);
+        trackElement.style.animationPlayState = 'running';
+      };
   
-      // Pausa animação quando não visível
+      // Configura animação após um pequeno delay para garantir que o DOM está pronto
+      setTimeout(configureAnimation, 100);
+  
+      // Configura observer para pausar quando não visível
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          track.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+          trackElement.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
         });
       }, { threshold: 0.1 });
   
-      observer.observe(track);
+      observer.observe(trackElement);
+  
+      // Reconfigura ao redimensionar
+      window.addEventListener('resize', () => {
+        setTimeout(configureAnimation, 100);
+      });
     };
   
     const initCarousels = () => {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  
       config.carousels.forEach(carousel => {
-        const duration = isMobile ? carousel.mobileDuration : carousel.desktopDuration;
-        setupInfiniteCarousel(carousel.selector, carousel.item, duration);
+        const track = document.querySelector(carousel.selector);
+        if (!track) return;
   
-        // Debounced resize handler
+        const isMobile = window.innerWidth <= 768;
+        const speed = isMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
+        
+        // Inicializa carrossel
+        setupCarousel(track, carousel.itemSelector, speed);
+  
+        // Atualiza no resize
         let resizeTimeout;
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(() => {
-            const newIsMobile = window.matchMedia('(max-width: 768px)').matches;
-            if (newIsMobile !== isMobile) {
-              const newDuration = newIsMobile ? carousel.mobileDuration : carousel.desktopDuration;
-              setupInfiniteCarousel(carousel.selector, carousel.item, newDuration);
-            }
-          }, 100);
+            const newIsMobile = window.innerWidth <= 768;
+            const newSpeed = newIsMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
+            setupCarousel(track, carousel.itemSelector, newSpeed);
+          }, 200);
         });
       });
     };
   
-    // 6. Countdown Timer - Versão Leve
+    // 6. Countdown Timer - Versão Simplificada
     const setupCountdown = () => {
-      const countdownDate = new Date(config.countdownEndDate).getTime();
-      const countdownContainer = document.querySelector('.countdown-container');
-      if (!countdownContainer) return;
+      const countdownEnd = new Date(config.countdownEndDate).getTime();
+      const container = document.querySelector('.countdown-container');
+      if (!container) return;
   
-      const updateCountdown = () => {
+      const update = () => {
         const now = new Date().getTime();
-        const distance = countdownDate - now;
+        const distance = countdownEnd - now;
   
         if (distance < 0) {
-          countdownContainer.innerHTML = '<div class="countdown-ended">OFERTA ENCERRADA!</div>';
+          container.innerHTML = '<div class="countdown-ended">OFERTA ENCERRADA!</div>';
           return;
         }
   
-        const days = Math.floor(distance / (86400000));
-        const hours = Math.floor((distance % 86400000) / 3600000);
-        const minutes = Math.floor((distance % 3600000) / 60000);
-        const seconds = Math.floor((distance % 60000) / 1000);
-  
         const updateElement = (id, value) => {
           const el = document.getElementById(id);
-          if (el) el.textContent = value.toString().padStart(2, '0');
+          if (el) el.textContent = Math.floor(value).toString().padStart(2, '0');
         };
   
-        updateElement('countdown-days', days);
-        updateElement('countdown-hours', hours);
-        updateElement('countdown-minutes', minutes);
-        updateElement('countdown-seconds', seconds);
+        updateElement('countdown-days', distance / (1000 * 60 * 60 * 24));
+        updateElement('countdown-hours', (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        updateElement('countdown-minutes', (distance % (1000 * 60 * 60)) / (1000 * 60));
+        updateElement('countdown-seconds', (distance % (1000 * 60)) / 1000);
       };
   
-      updateCountdown();
-      const countdownInterval = setInterval(updateCountdown, 1000);
+      update();
+      const timer = setInterval(update, 1000);
     };
   
-    // 7. Animações com IntersectionObserver - Versão Otimizada
-    const setupAnimations = () => {
+    // 7. Animações on Scroll - Com IntersectionObserver
+    const setupScrollAnimations = () => {
+      const animatedElements = document.querySelectorAll('.animate-on-scroll');
+      if (animatedElements.length === 0) return;
+  
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -232,9 +258,12 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      }, { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px' 
+      });
   
-      document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+      animatedElements.forEach(el => observer.observe(el));
     };
   
     // Inicialização de todos os componentes
@@ -245,9 +274,9 @@ document.addEventListener('DOMContentLoaded', function() {
       setupMobileMenu();
       initCarousels();
       setupCountdown();
-      setupAnimations();
+      setupScrollAnimations();
     };
   
     // Inicia tudo
     init();
-  });
+});
