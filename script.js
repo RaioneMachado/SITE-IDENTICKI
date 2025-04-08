@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
         { 
           selector: '.company-track', 
           itemSelector: '.company-logo', 
-          mobileSpeed: 50, 
-          desktopSpeed: 20 
+          mobileSpeed: 60,  // Velocidade igualada ao segundo carrossel
+          desktopSpeed: 30  
         },
         { 
           selector: '.immersion-track', 
           itemSelector: '.immersion-photo', 
-          mobileSpeed: 50, 
-          desktopSpeed: 20 
+          mobileSpeed: 60,  // Velocidade mantida (que você considerou boa)
+          desktopSpeed: 30  
         }
       ],
       countdownEndDate: 'April 30, 2025 23:59:59'
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }, { passive: true });
     };
   
-    // 5. Carrossel Infinito - Versão Corrigida para Mobile
+    // 5. Carrossel Infinito - Versão Corrigida
     const setupCarousel = (trackElement, itemSelector, speed) => {
       const items = trackElement.querySelectorAll(itemSelector);
       if (items.length < 2) return;
@@ -147,14 +147,16 @@ document.addEventListener('DOMContentLoaded', function() {
       // Remove clones existentes
       trackElement.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
   
-      // Duplica itens para criar efeito contínuo
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.classList.add('js-carousel-clone');
-        trackElement.appendChild(clone);
-      });
+      // Duplica itens (2 cópias para transição suave)
+      for (let i = 0; i < 2; i++) {
+        items.forEach(item => {
+          const clone = item.cloneNode(true);
+          clone.classList.add('js-carousel-clone');
+          trackElement.appendChild(clone);
+        });
+      }
   
-      // Função para calcular e configurar a animação
+      // Configura animação
       const configureAnimation = () => {
         const firstItem = items[0];
         if (!firstItem) return;
@@ -169,26 +171,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
         const totalWidth = (itemWidth + gap) * items.length;
   
-        trackElement.style.setProperty('--carousel-duration', `${speed}s`);
-        trackElement.style.setProperty('--carousel-translate', `-${totalWidth}px`);
-        trackElement.style.animationPlayState = 'running';
+        // Reset da animação para evitar flickering
+        trackElement.style.animation = 'none';
+        void trackElement.offsetWidth; // Força reflow
+        trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
+  
+        // Define propriedades CSS
+        trackElement.style.setProperty('--item-width', `${itemWidth}px`);
+        trackElement.style.setProperty('--gap-width', `${gap}px`);
+        trackElement.style.setProperty('--total-items', items.length);
       };
   
-      // Configura animação após um pequeno delay para garantir que o DOM está pronto
+      // Adiciona keyframes dinamicamente
+      if (!document.getElementById('carouselKeyframes')) {
+        const style = document.createElement('style');
+        style.id = 'carouselKeyframes';
+        style.textContent = `
+          @keyframes carouselScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-1 * (var(--item-width) + var(--gap-width)) * var(--total-items))); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+  
+      // Inicia animação
       setTimeout(configureAnimation, 100);
   
-      // Configura observer para pausar quando não visível
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          trackElement.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-        });
-      }, { threshold: 0.1 });
-  
-      observer.observe(trackElement);
-  
       // Reconfigura ao redimensionar
+      let resizeTimeout;
       window.addEventListener('resize', () => {
-        setTimeout(configureAnimation, 100);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(configureAnimation, 200);
       });
     };
   
@@ -200,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const isMobile = window.innerWidth <= 768;
         const speed = isMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
         
-        // Inicializa carrossel
         setupCarousel(track, carousel.itemSelector, speed);
   
         // Atualiza no resize
@@ -216,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     };
   
-    // 6. Countdown Timer - Versão Simplificada
+    // 6. Countdown Timer
     const setupCountdown = () => {
       const countdownEnd = new Date(config.countdownEndDate).getTime();
       const container = document.querySelector('.countdown-container');
@@ -246,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const timer = setInterval(update, 1000);
     };
   
-    // 7. Animações on Scroll - Com IntersectionObserver
+    // 7. Animações on Scroll
     const setupScrollAnimations = () => {
       const animatedElements = document.querySelectorAll('.animate-on-scroll');
       if (animatedElements.length === 0) return;
@@ -266,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
       animatedElements.forEach(el => observer.observe(el));
     };
   
-    // Inicialização de todos os componentes
+    // Inicialização
     const init = () => {
       setupFAQ();
       setupSmoothScrolling();
@@ -277,6 +290,5 @@ document.addEventListener('DOMContentLoaded', function() {
       setupScrollAnimations();
     };
   
-    // Inicia tudo
     init();
 });
