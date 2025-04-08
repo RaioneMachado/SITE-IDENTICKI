@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         countdownEndDate: 'April 30, 2025 23:59:59'
     };
 
-    // 1. FAQ Accordion
+    // 1. FAQ Accordion - Versão Otimizada
     const setupFAQ = () => {
         const faqItems = document.querySelectorAll('.faq-item');
         
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // 2. Smooth Scrolling
+    // 2. Smooth Scrolling - Com Debounce
     const setupSmoothScrolling = () => {
         const handleClick = (e) => {
             const anchor = e.target.closest('a[href^="#"]');
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('click', handleClick, { passive: true });
     };
 
-    // 3. Header Scroll Effect
+    // 3. Header Scroll Effect - Com Throttle
     const setupHeaderScrollEffect = () => {
         const header = document.querySelector('header');
         if (!header) return;
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', handleScroll, { passive: true });
     };
 
-    // 4. Mobile Menu
+    // 4. Mobile Menu - Versão Melhorada
     let menuOpen = false;
     const toggleMobileMenu = () => {
         const nav = document.querySelector('nav');
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
     };
 
-    // 5. Carrossel Infinito - Versão Melhorada
+    // 5. Carrossel Infinito - Versão Corrigida
     const setupCarousel = (trackElement, itemSelector, speed) => {
         const items = trackElement.querySelectorAll(itemSelector);
         if (items.length < 2) return;
@@ -156,85 +156,53 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Verifica se todas as imagens estão carregadas
-        const checkImagesLoaded = (callback) => {
-            const images = trackElement.querySelectorAll('img');
-            if (images.length === 0) {
-                callback();
+        // Configura animação
+        const configureAnimation = () => {
+            const firstItem = items[0];
+            if (!firstItem) return;
+            
+            // Garante que as imagens estão carregadas
+            if (firstItem.querySelector('img') && !firstItem.querySelector('img').complete) {
+                firstItem.querySelector('img').addEventListener('load', configureAnimation);
                 return;
             }
 
-            let loadedCount = 0;
-            images.forEach(img => {
-                if (img.complete) {
-                    loadedCount++;
-                } else {
-                    img.addEventListener('load', () => {
-                        loadedCount++;
-                        if (loadedCount === images.length) callback();
-                    });
-                    img.addEventListener('error', () => {
-                        loadedCount++;
-                        if (loadedCount === images.length) callback();
-                    });
-                }
-            });
+            const itemWidth = firstItem.offsetWidth;
+            const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
+            const totalWidth = (itemWidth + gap) * items.length;
 
-            if (loadedCount === images.length) callback();
+            // Reset da animação para evitar flickering
+            trackElement.style.animation = 'none';
+            void trackElement.offsetWidth; // Força reflow
+            trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
+
+            // Define propriedades CSS
+            trackElement.style.setProperty('--item-width', `${itemWidth}px`);
+            trackElement.style.setProperty('--gap-width', `${gap}px`);
+            trackElement.style.setProperty('--total-items', items.length);
         };
 
-        // Configura animação após todas as imagens carregarem
-        checkImagesLoaded(() => {
-            const configureAnimation = () => {
-                const firstItem = items[0];
-                if (!firstItem) return;
+        // Adiciona keyframes dinamicamente
+        if (!document.getElementById('carouselKeyframes')) {
+            const style = document.createElement('style');
+            style.id = 'carouselKeyframes';
+            style.textContent = `
+                @keyframes carouselScroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(calc(-1 * (var(--item-width) + var(--gap-width)) * var(--total-items))); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
 
-                const itemWidth = firstItem.offsetWidth;
-                const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
-                const totalWidth = (itemWidth + gap) * items.length;
-
-                // Reset da animação para evitar flickering
-                trackElement.style.animation = 'none';
-                void trackElement.offsetWidth; // Força reflow
-                trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
-
-                // Define propriedades CSS
-                trackElement.style.setProperty('--item-width', `${itemWidth}px`);
-                trackElement.style.setProperty('--gap-width', `${gap}px`);
-                trackElement.style.setProperty('--total-items', items.length);
-            };
-
-            // Adiciona keyframes dinamicamente
-            if (!document.getElementById('carouselKeyframes')) {
-                const style = document.createElement('style');
-                style.id = 'carouselKeyframes';
-                style.textContent = `
-                    @keyframes carouselScroll {
-                        0% { transform: translateX(0); }
-                        100% { transform: translateX(calc(-1 * (var(--item-width) + var(--gap-width)) * var(--total-items))); }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-
-            // Inicia animação com pequeno delay para garantir que tudo está pronto
-            setTimeout(configureAnimation, 100);
-        });
+        // Inicia animação
+        setTimeout(configureAnimation, 100);
 
         // Reconfigura ao redimensionar
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const firstItem = items[0];
-                if (!firstItem) return;
-
-                const itemWidth = firstItem.offsetWidth;
-                const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
-                
-                trackElement.style.setProperty('--item-width', `${itemWidth}px`);
-                trackElement.style.setProperty('--gap-width', `${gap}px`);
-            }, 200);
+            resizeTimeout = setTimeout(configureAnimation, 200);
         });
     };
 
@@ -261,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // 6. Countdown Timer
+    // 6. Countdown Timer - Versão Corrigida
     const setupCountdown = () => {
         const countdownEnd = new Date(config.countdownEndDate).getTime();
         const container = document.querySelector('.countdown-container');
