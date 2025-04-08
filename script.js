@@ -1,294 +1,333 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configurações globais
     const config = {
-      carousels: [
-        { 
-          selector: '.company-track', 
-          itemSelector: '.company-logo', 
-          mobileSpeed: 60,  // Velocidade igualada ao segundo carrossel
-          desktopSpeed: 30  
-        },
-        { 
-          selector: '.immersion-track', 
-          itemSelector: '.immersion-photo', 
-          mobileSpeed: 60,  // Velocidade mantida (que você considerou boa)
-          desktopSpeed: 30  
-        }
-      ],
-      countdownEndDate: 'April 30, 2025 23:59:59'
+        carousels: [
+            { 
+                selector: '.company-track', 
+                itemSelector: '.company-logo', 
+                mobileSpeed: 60,
+                desktopSpeed: 30  
+            },
+            { 
+                selector: '.immersion-track', 
+                itemSelector: '.immersion-photo', 
+                mobileSpeed: 60,
+                desktopSpeed: 30  
+            }
+        ],
+        countdownEndDate: 'April 30, 2025 23:59:59'
     };
-  
-    // 1. FAQ Accordion - Versão Otimizada
+
+    // 1. FAQ Accordion
     const setupFAQ = () => {
-      const faqItems = document.querySelectorAll('.faq-item');
-      
-      faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        if (!question) return;
-  
-        question.addEventListener('click', () => {
-          const wasActive = item.classList.contains('active');
-          
-          // Fecha todos os itens primeiro
-          faqItems.forEach(otherItem => {
-            otherItem.classList.remove('active');
-          });
-  
-          // Abre o item clicado se não estava ativo
-          if (!wasActive) {
-            item.classList.add('active');
-          }
-        });
-      });
-    };
-  
-    // 2. Smooth Scrolling - Com Debounce
-    const setupSmoothScrolling = () => {
-      const handleClick = (e) => {
-        const anchor = e.target.closest('a[href^="#"]');
-        if (!anchor || anchor.getAttribute('href') === '#') return;
-  
-        e.preventDefault();
-        const targetId = anchor.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+        const faqItems = document.querySelectorAll('.faq-item');
         
-        if (targetElement) {
-          // Fecha o menu mobile se estiver aberto
-          const nav = document.querySelector('nav');
-          if (nav && nav.classList.contains('active')) {
-            toggleMobileMenu();
-          }
-  
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      };
-  
-      document.addEventListener('click', handleClick, { passive: true });
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (!question) return;
+
+            question.addEventListener('click', () => {
+                const wasActive = item.classList.contains('active');
+                
+                // Fecha todos os itens primeiro
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Abre o item clicado se não estava ativo
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
     };
-  
-    // 3. Header Scroll Effect - Com Throttle
+
+    // 2. Smooth Scrolling
+    const setupSmoothScrolling = () => {
+        const handleClick = (e) => {
+            const anchor = e.target.closest('a[href^="#"]');
+            if (!anchor || anchor.getAttribute('href') === '#') return;
+
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Fecha o menu mobile se estiver aberto
+                const nav = document.querySelector('nav');
+                if (nav && nav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        };
+
+        document.addEventListener('click', handleClick, { passive: true });
+    };
+
+    // 3. Header Scroll Effect
     const setupHeaderScrollEffect = () => {
-      const header = document.querySelector('header');
-      if (!header) return;
-  
-      let lastScrollY = window.scrollY;
-      let ticking = false;
-  
-      const updateHeader = () => {
-        header.style.boxShadow = lastScrollY > 50 
-          ? '0 2px 10px rgba(0, 0, 0, 0.2)' 
-          : '0 2px 10px rgba(0, 0, 0, 0.1)';
-        ticking = false;
-      };
-  
-      const handleScroll = () => {
-        lastScrollY = window.scrollY;
-        if (!ticking) {
-          window.requestAnimationFrame(updateHeader);
-          ticking = true;
-        }
-      };
-  
-      window.addEventListener('scroll', handleScroll, { passive: true });
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        const updateHeader = () => {
+            header.style.boxShadow = lastScrollY > 50 
+                ? '0 2px 10px rgba(0, 0, 0, 0.2)' 
+                : '0 2px 10px rgba(0, 0, 0, 0.1)';
+            ticking = false;
+        };
+
+        const handleScroll = () => {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
     };
-  
-    // 4. Mobile Menu - Versão Melhorada
+
+    // 4. Mobile Menu
     let menuOpen = false;
     const toggleMobileMenu = () => {
-      const nav = document.querySelector('nav');
-      if (!nav) return;
-  
-      menuOpen = !menuOpen;
-      
-      if (menuOpen) {
-        nav.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      } else {
-        nav.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-  
-      // Atualiza ícone
-      const icon = document.querySelector('.mobile-menu-btn i');
-      if (icon) {
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-times');
-      }
-    };
-  
-    const setupMobileMenu = () => {
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-      }
-  
-      // Fecha o menu ao clicar em um link ou fora
-      document.addEventListener('click', (e) => {
-        if (!menuOpen) return;
-  
         const nav = document.querySelector('nav');
-        const isClickInsideNav = nav?.contains(e.target);
-        const isClickOnButton = e.target.closest('.mobile-menu-btn');
-  
-        if (!isClickInsideNav && !isClickOnButton) {
-          toggleMobileMenu();
+        if (!nav) return;
+
+        menuOpen = !menuOpen;
+        
+        if (menuOpen) {
+            nav.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
         }
-      }, { passive: true });
+
+        // Atualiza ícone
+        const icon = document.querySelector('.mobile-menu-btn i');
+        if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
     };
-  
-    // 5. Carrossel Infinito - Versão Corrigida
+
+    const setupMobileMenu = () => {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Fecha o menu ao clicar em um link ou fora
+        document.addEventListener('click', (e) => {
+            if (!menuOpen) return;
+
+            const nav = document.querySelector('nav');
+            const isClickInsideNav = nav?.contains(e.target);
+            const isClickOnButton = e.target.closest('.mobile-menu-btn');
+
+            if (!isClickInsideNav && !isClickOnButton) {
+                toggleMobileMenu();
+            }
+        }, { passive: true });
+    };
+
+    // 5. Carrossel Infinito - Versão Melhorada
     const setupCarousel = (trackElement, itemSelector, speed) => {
-      const items = trackElement.querySelectorAll(itemSelector);
-      if (items.length < 2) return;
-  
-      // Remove clones existentes
-      trackElement.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
-  
-      // Duplica itens (2 cópias para transição suave)
-      for (let i = 0; i < 2; i++) {
-        items.forEach(item => {
-          const clone = item.cloneNode(true);
-          clone.classList.add('js-carousel-clone');
-          trackElement.appendChild(clone);
-        });
-      }
-  
-      // Configura animação
-      const configureAnimation = () => {
-        const firstItem = items[0];
-        if (!firstItem) return;
-        
-        // Garante que as imagens estão carregadas
-        if (firstItem.querySelector('img') && !firstItem.querySelector('img').complete) {
-          firstItem.querySelector('img').addEventListener('load', configureAnimation);
-          return;
+        const items = trackElement.querySelectorAll(itemSelector);
+        if (items.length < 2) return;
+
+        // Remove clones existentes
+        trackElement.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
+
+        // Duplica itens (2 cópias para transição suave)
+        for (let i = 0; i < 2; i++) {
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.classList.add('js-carousel-clone');
+                trackElement.appendChild(clone);
+            });
         }
-  
-        const itemWidth = firstItem.offsetWidth;
-        const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
-        const totalWidth = (itemWidth + gap) * items.length;
-  
-        // Reset da animação para evitar flickering
-        trackElement.style.animation = 'none';
-        void trackElement.offsetWidth; // Força reflow
-        trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
-  
-        // Define propriedades CSS
-        trackElement.style.setProperty('--item-width', `${itemWidth}px`);
-        trackElement.style.setProperty('--gap-width', `${gap}px`);
-        trackElement.style.setProperty('--total-items', items.length);
-      };
-  
-      // Adiciona keyframes dinamicamente
-      if (!document.getElementById('carouselKeyframes')) {
-        const style = document.createElement('style');
-        style.id = 'carouselKeyframes';
-        style.textContent = `
-          @keyframes carouselScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-1 * (var(--item-width) + var(--gap-width)) * var(--total-items))); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-  
-      // Inicia animação
-      setTimeout(configureAnimation, 100);
-  
-      // Reconfigura ao redimensionar
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(configureAnimation, 200);
-      });
-    };
-  
-    const initCarousels = () => {
-      config.carousels.forEach(carousel => {
-        const track = document.querySelector(carousel.selector);
-        if (!track) return;
-  
-        const isMobile = window.innerWidth <= 768;
-        const speed = isMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
-        
-        setupCarousel(track, carousel.itemSelector, speed);
-  
-        // Atualiza no resize
+
+        // Verifica se todas as imagens estão carregadas
+        const checkImagesLoaded = (callback) => {
+            const images = trackElement.querySelectorAll('img');
+            if (images.length === 0) {
+                callback();
+                return;
+            }
+
+            let loadedCount = 0;
+            images.forEach(img => {
+                if (img.complete) {
+                    loadedCount++;
+                } else {
+                    img.addEventListener('load', () => {
+                        loadedCount++;
+                        if (loadedCount === images.length) callback();
+                    });
+                    img.addEventListener('error', () => {
+                        loadedCount++;
+                        if (loadedCount === images.length) callback();
+                    });
+                }
+            });
+
+            if (loadedCount === images.length) callback();
+        };
+
+        // Configura animação após todas as imagens carregarem
+        checkImagesLoaded(() => {
+            const configureAnimation = () => {
+                const firstItem = items[0];
+                if (!firstItem) return;
+
+                const itemWidth = firstItem.offsetWidth;
+                const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
+                const totalWidth = (itemWidth + gap) * items.length;
+
+                // Reset da animação para evitar flickering
+                trackElement.style.animation = 'none';
+                void trackElement.offsetWidth; // Força reflow
+                trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
+
+                // Define propriedades CSS
+                trackElement.style.setProperty('--item-width', `${itemWidth}px`);
+                trackElement.style.setProperty('--gap-width', `${gap}px`);
+                trackElement.style.setProperty('--total-items', items.length);
+            };
+
+            // Adiciona keyframes dinamicamente
+            if (!document.getElementById('carouselKeyframes')) {
+                const style = document.createElement('style');
+                style.id = 'carouselKeyframes';
+                style.textContent = `
+                    @keyframes carouselScroll {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(calc(-1 * (var(--item-width) + var(--gap-width)) * var(--total-items))); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Inicia animação com pequeno delay para garantir que tudo está pronto
+            setTimeout(configureAnimation, 100);
+        });
+
+        // Reconfigura ao redimensionar
         let resizeTimeout;
         window.addEventListener('resize', () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            const newIsMobile = window.innerWidth <= 768;
-            const newSpeed = newIsMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
-            setupCarousel(track, carousel.itemSelector, newSpeed);
-          }, 200);
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const firstItem = items[0];
+                if (!firstItem) return;
+
+                const itemWidth = firstItem.offsetWidth;
+                const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
+                
+                trackElement.style.setProperty('--item-width', `${itemWidth}px`);
+                trackElement.style.setProperty('--gap-width', `${gap}px`);
+            }, 200);
         });
-      });
     };
-  
+
+    const initCarousels = () => {
+        config.carousels.forEach(carousel => {
+            const track = document.querySelector(carousel.selector);
+            if (!track) return;
+
+            const isMobile = window.innerWidth <= 768;
+            const speed = isMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
+            
+            setupCarousel(track, carousel.itemSelector, speed);
+
+            // Atualiza no resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newIsMobile = window.innerWidth <= 768;
+                    const newSpeed = newIsMobile ? carousel.mobileSpeed : carousel.desktopSpeed;
+                    setupCarousel(track, carousel.itemSelector, newSpeed);
+                }, 200);
+            });
+        });
+    };
+
     // 6. Countdown Timer
     const setupCountdown = () => {
-      const countdownEnd = new Date(config.countdownEndDate).getTime();
-      const container = document.querySelector('.countdown-container');
-      if (!container) return;
-  
-      const update = () => {
-        const now = new Date().getTime();
-        const distance = countdownEnd - now;
-  
-        if (distance < 0) {
-          container.innerHTML = '<div class="countdown-ended">OFERTA ENCERRADA!</div>';
-          return;
-        }
-  
-        const updateElement = (id, value) => {
-          const el = document.getElementById(id);
-          if (el) el.textContent = Math.floor(value).toString().padStart(2, '0');
+        const countdownEnd = new Date(config.countdownEndDate).getTime();
+        const container = document.querySelector('.countdown-container');
+        if (!container) return;
+
+        const daysEl = document.getElementById('countdown-days');
+        const hoursEl = document.getElementById('countdown-hours');
+        const minutesEl = document.getElementById('countdown-minutes');
+        const secondsEl = document.getElementById('countdown-seconds');
+
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+        const update = () => {
+            const now = new Date().getTime();
+            const distance = countdownEnd - now;
+
+            if (distance < 0) {
+                container.innerHTML = '<div class="countdown-ended">OFERTA ENCERRADA!</div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
         };
-  
-        updateElement('countdown-days', distance / (1000 * 60 * 60 * 24));
-        updateElement('countdown-hours', (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        updateElement('countdown-minutes', (distance % (1000 * 60 * 60)) / (1000 * 60));
-        updateElement('countdown-seconds', (distance % (1000 * 60)) / 1000);
-      };
-  
-      update();
-      const timer = setInterval(update, 1000);
+
+        update();
+        const timer = setInterval(update, 1000);
     };
-  
+
     // 7. Animações on Scroll
     const setupScrollAnimations = () => {
-      const animatedElements = document.querySelectorAll('.animate-on-scroll');
-      if (animatedElements.length === 0) return;
-  
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
-            observer.unobserve(entry.target);
-          }
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        if (animatedElements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px' 
         });
-      }, { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px' 
-      });
-  
-      animatedElements.forEach(el => observer.observe(el));
+
+        animatedElements.forEach(el => observer.observe(el));
     };
-  
+
     // Inicialização
     const init = () => {
-      setupFAQ();
-      setupSmoothScrolling();
-      setupHeaderScrollEffect();
-      setupMobileMenu();
-      initCarousels();
-      setupCountdown();
-      setupScrollAnimations();
+        setupFAQ();
+        setupSmoothScrolling();
+        setupHeaderScrollEffect();
+        setupMobileMenu();
+        initCarousels();
+        setupCountdown();
+        setupScrollAnimations();
     };
-  
+
     init();
 });
