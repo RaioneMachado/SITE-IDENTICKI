@@ -3243,4 +3243,42 @@ footer {
   [class*="-track"] {
     animation: infiniteCarousel var(--carousel-duration, 20s) linear infinite;
   }
-    
+/* Efeito de Luz Azul Gigante - Lado Direito */
+.special-offer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -30%;
+    width: 80%;
+    height: 200%;
+    background: 
+        radial-gradient(ellipse at center, 
+            rgba(100, 150, 255, 0.5) 0%, 
+            rgba(0, 80, 200, 0.3) 30%, 
+            transparent 70%);
+    filter: blur(100px);
+    z-index: 0;
+    animation: giant-pulse 12s infinite alternate;
+    transform: rotate(15deg);
+    opacity: 0.8;
+}
+
+@keyframes giant-pulse {
+    0% {
+        transform: rotate(15deg) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: rotate(15deg) scale(1.3);
+        opacity: 0.7;
+    }
+}
+
+/* Ajuste para não interferir no conteúdo */
+.offer-box {
+    position: relative;
+    z-index: 10; /* Garante que o conteúdo fique acima da luz */
+}
