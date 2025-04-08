@@ -139,47 +139,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
     };
 
-    // 5. Carrossel Infinito - Versão Corrigida
+    // 5. Carrossel Infinito - Versão Corrigida (solução definitiva)
     const setupCarousel = (trackElement, itemSelector, speed) => {
         const items = trackElement.querySelectorAll(itemSelector);
         if (items.length < 2) return;
 
-        // Remove clones existentes
+        // Remove clones existentes e reseta a animação
         trackElement.querySelectorAll('.js-carousel-clone').forEach(clone => clone.remove());
+        trackElement.style.animation = 'none';
+        trackElement.style.transform = 'translateX(0)';
 
-        // Duplica itens (2 cópias para transição suave)
-        for (let i = 0; i < 2; i++) {
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                clone.classList.add('js-carousel-clone');
-                trackElement.appendChild(clone);
-            });
+        // Verifica se precisa adicionar clones
+        const originalItems = trackElement.querySelectorAll(`${itemSelector}:not(.js-carousel-clone)`);
+        if (originalItems.length === items.length) {
+            // Duplica itens (2 cópias para transição suave)
+            for (let i = 0; i < 2; i++) {
+                originalItems.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    clone.classList.add('js-carousel-clone');
+                    trackElement.appendChild(clone);
+                });
+            }
         }
 
-        // Configura animação
+        // Configura animação com garantia de que as imagens estão carregadas
         const configureAnimation = () => {
-            const firstItem = items[0];
+            const firstItem = originalItems[0];
             if (!firstItem) return;
             
-            // Garante que as imagens estão carregadas
-            if (firstItem.querySelector('img') && !firstItem.querySelector('img').complete) {
-                firstItem.querySelector('img').addEventListener('load', configureAnimation);
-                return;
-            }
+            const checkImageLoad = () => {
+                const img = firstItem.querySelector('img');
+                if (img && !img.complete) {
+                    img.addEventListener('load', configureAnimation);
+                    return false;
+                }
+                return true;
+            };
+
+            if (!checkImageLoad()) return;
 
             const itemWidth = firstItem.offsetWidth;
             const gap = parseInt(window.getComputedStyle(trackElement).getPropertyValue('gap')) || 20;
-            const totalWidth = (itemWidth + gap) * items.length;
+            const totalWidth = (itemWidth + gap) * originalItems.length;
 
-            // Reset da animação para evitar flickering
-            trackElement.style.animation = 'none';
-            void trackElement.offsetWidth; // Força reflow
-            trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
-
-            // Define propriedades CSS
+            // Configura as propriedades CSS
             trackElement.style.setProperty('--item-width', `${itemWidth}px`);
             trackElement.style.setProperty('--gap-width', `${gap}px`);
-            trackElement.style.setProperty('--total-items', items.length);
+            trackElement.style.setProperty('--total-items', originalItems.length);
+
+            // Força um reflow antes de aplicar a animação
+            void trackElement.offsetWidth;
+
+            // Aplica a animação
+            trackElement.style.animation = `carouselScroll ${speed}s linear infinite`;
         };
 
         // Adiciona keyframes dinamicamente
@@ -195,14 +207,19 @@ document.addEventListener('DOMContentLoaded', function() {
             document.head.appendChild(style);
         }
 
-        // Inicia animação
+        // Inicia animação com pequeno delay para garantir o layout
         setTimeout(configureAnimation, 100);
 
-        // Reconfigura ao redimensionar
+        // Reconfigura ao redimensionar com debounce
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(configureAnimation, 200);
+            resizeTimeout = setTimeout(() => {
+                trackElement.style.animation = 'none';
+                setTimeout(() => {
+                    configureAnimation();
+                }, 50);
+            }, 200);
         });
     };
 
