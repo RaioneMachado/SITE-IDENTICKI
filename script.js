@@ -5,13 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
         { 
           selector: '.company-track', 
           itemSelector: '.company-logo', 
-          mobileSpeed: 30, 
+          mobileSpeed: 50, 
           desktopSpeed: 20 
         },
         { 
           selector: '.immersion-track', 
           itemSelector: '.immersion-photo', 
-          mobileSpeed: 30, 
+          mobileSpeed: 50, 
           desktopSpeed: 20 
         }
       ],
