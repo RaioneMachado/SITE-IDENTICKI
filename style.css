@@ -838,7 +838,7 @@ nav ul li a:hover {
 }
 
 .price-container {
-    margin: 40px 0;
+    margin: 40px 0 10px 0;
 }
 
 .price-comparison {
@@ -902,9 +902,54 @@ nav ul li a:hover {
     font-weight: 500;
 }
 
+/* Botão CTA Principal */
+.offer-cta {
+    text-align: center;
+    margin: 25px auto 40px auto;
+}
+
+.btn-premium {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #E96629, #ff7b38);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(233,102,41,0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(233,102,41,0.6);
+}
+
+.btn-premium::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-premium:hover::before {
+    left: 100%;
+}
+
 /* Lots Section Styles */
 .lots-container {
-    margin: 40px 0;
+    margin: 0 0 40px 0;
     padding: 20px;
     background: rgba(30, 30, 30, 0.6);
     border-radius: 15px;
@@ -988,142 +1033,6 @@ nav ul li a:hover {
     text-align: center;
 }
 
-.offer-highlight {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 50px 0;
-    flex-wrap: wrap;
-}
-
-.highlight-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    min-width: 150px;
-}
-
-.highlight-icon {
-    width: 60px;
-    height: 60px;
-    background: rgba(233,102,41,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #E96629;
-    border: 2px solid rgba(233,102,41,0.3);
-    transition: all 0.3s ease;
-}
-
-.highlight-item:hover .highlight-icon {
-    background: #E96629;
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(233,102,41,0.3);
-}
-
-.highlight-item span {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ddd;
-    text-align: center;
-}
-
-.offer-cta {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.btn-premium {
-    padding: 20px 40px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, #E96629, #ff7b38);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(233,102,41,0.4);
-    transition: all 0.3s ease;
-}
-
-.btn-premium:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(233,102,41,0.6);
-}
-
-.btn-premium::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
-}
-
-.btn-premium:hover::before {
-    left: 100%;
-}
-
-@keyframes rotate-gradient {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .offer-box {
-        padding: 40px 20px;
-    }
-    
-    .title-part {
-        font-size: 2rem;
-    }
-    
-    .new-price .price-amount {
-        font-size: 2.8rem;
-    }
-    
-    .old-price .price-amount {
-        font-size: 1.6rem;
-    }
-    
-    .lots-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .offer-highlight {
-        gap: 20px;
-    }
-    
-    .btn-premium {
-        padding: 16px 30px;
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .lots-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .offer-badge {
-        right: -35px;
-        padding: 6px 30px;
-        font-size: 0.7rem;
-    }
-}
 /* Combos Especiais */
 .combos-container {
     margin: 40px 0;
@@ -1224,11 +1133,9 @@ nav ul li a:hover {
 }
 
 /* Botão Comercial */
-/* Botão Comercial - Versão Laranja */
 .commercial-contact {
     margin: 30px 0;
     text-align: center;
-    padding: 0 15px;
 }
 
 .btn-commercial {
@@ -1271,11 +1178,85 @@ nav ul li a:hover {
     font-weight: 500;
 }
 
-/* Responsividade Aprimorada */
+.offer-highlight {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 50px 0 30px 0;
+    flex-wrap: wrap;
+}
+
+.highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+}
+
+.highlight-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(233,102,41,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #E96629;
+    border: 2px solid rgba(233,102,41,0.3);
+    transition: all 0.3s ease;
+}
+
+.highlight-item:hover .highlight-icon {
+    background: #E96629;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(233,102,41,0.3);
+}
+
+.highlight-item span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ddd;
+    text-align: center;
+}
+
+@keyframes rotate-gradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
+    .offer-box {
+        padding: 40px 20px;
+    }
+    
+    .title-part {
+        font-size: 2rem;
+    }
+    
+    .new-price .price-amount {
+        font-size: 2.8rem;
+    }
+    
+    .old-price .price-amount {
+        font-size: 1.6rem;
+    }
+    
+    .lots-grid,
     .combos-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .offer-highlight {
+        gap: 20px;
+    }
+    
+    .btn-premium {
+        padding: 16px 30px;
+        font-size: 1rem;
     }
     
     .btn-commercial {
@@ -1285,35 +1266,29 @@ nav ul li a:hover {
         justify-content: center;
     }
     
-    .btn-commercial i {
-        font-size: 1.6rem;
-    }
-    
     .combo-header {
         flex-direction: column;
         gap: 8px;
         text-align: center;
     }
-    
-    .combo-badge, .combo-value {
-        width: 100%;
-    }
 }
 
 @media (max-width: 480px) {
+    .lots-grid,
+    .combos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .offer-badge {
+        right: -35px;
+        padding: 6px 30px;
+        font-size: 0.7rem;
+    }
+    
     .btn-commercial {
         flex-direction: column;
         gap: 8px;
         padding: 14px;
-    }
-    
-    .btn-commercial i {
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-    }
-    
-    .btn-commercial span {
-        text-align: center;
     }
     
     .combos-container, 
