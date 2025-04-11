@@ -3610,13 +3610,17 @@ footer {
       padding: 25px;
     }
   }
-  /* Impede rolagem lateral */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
+  body {
+    overflow-x: clip; /* melhor do que hidden para não travar animações/carrosséis */
   }
+  
+  html {
+    width: 100%;
+    overflow-x: clip;
+  }
+  
+  /* Também útil pra prevenir elementos estourando a largura */
   * {
     box-sizing: border-box;
-    max-width: 100vw;
   }
-    
+  
