@@ -3610,3 +3610,9 @@ footer {
       padding: 25px;
     }
   }
+  /* Impede rolagem lateral */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
