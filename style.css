@@ -2948,7 +2948,7 @@ footer {
   
   .power-highlight h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 3.5rem;
+    font-size: 2.0rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -3499,5 +3499,114 @@ footer {
     .btn-content i {
       font-size: 24px;
       left: 13px;
+    }
+  }
+  /* ===== SEÇÃO IMERSÃO ===== */
+.imersao-section {
+    padding: 100px 0;
+    background: #121212;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .imersao-section::before {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(233, 102, 41, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  
+  .imersao-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .imersao-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .imersao-item {
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #E96629;
+  }
+  
+  .imersao-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 10px 10px 0 rgba(233, 102, 41, 0.2);
+  }
+  
+  .imersao-icon {
+    color: #E96629;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .imersao-item-title {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+  
+  .imersao-cta {
+    text-align: center;
+    margin-top: 60px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: #E96629;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .cta-button:hover {
+    background: #ff7b3e;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(233, 102, 41, 0.3);
+  }
+  
+  /* Animação pulsante */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .imersao-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .imersao-item {
+      padding: 25px;
     }
   }
