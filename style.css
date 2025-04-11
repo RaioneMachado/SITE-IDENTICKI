@@ -902,6 +902,92 @@ nav ul li a:hover {
     font-weight: 500;
 }
 
+/* Lots Section Styles */
+.lots-container {
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 15px;
+    border: 1px solid rgba(233, 102, 41, 0.2);
+}
+
+.lots-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #E96629;
+}
+
+.lots-title h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.lots-title i {
+    font-size: 1.6rem;
+}
+
+.lots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.lot-item {
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 3px solid #E96629;
+    transition: all 0.3s ease;
+}
+
+.lot-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(233, 102, 41, 0.2);
+}
+
+.lot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lot-badge {
+    background: #E96629;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.lot-price {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.lot-details p {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lot-details i {
+    color: #E96629;
+    width: 16px;
+    text-align: center;
+}
+
 .offer-highlight {
     display: flex;
     justify-content: center;
@@ -1013,6 +1099,10 @@ nav ul li a:hover {
         font-size: 1.6rem;
     }
     
+    .lots-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
     .offer-highlight {
         gap: 20px;
     }
@@ -1023,6 +1113,219 @@ nav ul li a:hover {
     }
 }
 
+@media (max-width: 480px) {
+    .lots-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .offer-badge {
+        right: -35px;
+        padding: 6px 30px;
+        font-size: 0.7rem;
+    }
+}
+/* Combos Especiais */
+.combos-container {
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 15px;
+    border: 1px solid rgba(92, 187, 184, 0.2);
+}
+
+.combos-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #5CBBB8;
+}
+
+.combos-title h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.combos-title i {
+    font-size: 1.6rem;
+}
+
+.combos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.combo-item {
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.combo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(92, 187, 184, 0.2);
+}
+
+.combo-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.combo-badge {
+    background: #5CBBB8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.combo-value {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.combo-details {
+    padding: 15px;
+}
+
+.combo-details p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.combo-details i {
+    color: #5CBBB8;
+    width: 16px;
+    text-align: center;
+}
+
+.combo-price {
+    font-weight: 700;
+    color: #5CBBB8;
+    font-size: 1.2rem;
+    margin-top: 15px !important;
+    text-align: center;
+}
+
+/* Botão Comercial */
+/* Botão Comercial - Versão Laranja */
+.commercial-contact {
+    margin: 30px 0;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.btn-commercial {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 25px;
+    background: linear-gradient(90deg, #D45B24, #E96629);
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(212, 91, 36, 0.3);
+    text-align: left;
+    border: none;
+    max-width: 100%;
+}
+
+.btn-commercial:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 91, 36, 0.5);
+    background: linear-gradient(90deg, #E96629, #D45B24);
+}
+
+.btn-commercial i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.btn-commercial span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.btn-commercial span small {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Responsividade Aprimorada */
+@media (max-width: 768px) {
+    .combos-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .btn-commercial {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-commercial i {
+        font-size: 1.6rem;
+    }
+    
+    .combo-header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .combo-badge, .combo-value {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-commercial {
+        flex-direction: column;
+        gap: 8px;
+        padding: 14px;
+    }
+    
+    .btn-commercial i {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+    }
+    
+    .btn-commercial span {
+        text-align: center;
+    }
+    
+    .combos-container, 
+    .lots-container {
+        padding: 15px;
+    }
+    
+    .combo-item, 
+    .lot-item {
+        padding: 12px;
+    }
+}
 /* Seção de Vídeos */
 
 .videos-section {
