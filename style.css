@@ -1301,6 +1301,163 @@ nav ul li a:hover {
         padding: 12px;
     }
 }
+
+/* Combos Especiais */
+.combos-container {
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 15px;
+    border: 1px solid rgba(233, 102, 41, 0.2);
+}
+
+.combos-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #E96629;
+}
+
+.combos-title h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.combos-title i {
+    font-size: 1.6rem;
+}
+
+.combos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.combo-item {
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(233, 102, 41, 0.1);
+}
+
+.combo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(233, 102, 41, 0.2);
+}
+
+.combo-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.combo-badge {
+    background: #E96629;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.combo-value {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.combo-details {
+    padding: 15px;
+}
+
+.combo-details p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.combo-details i {
+    color: #E96629;
+    width: 16px;
+    text-align: center;
+}
+
+.combo-price {
+    font-weight: 700;
+    color: #E96629;
+    font-size: 1.2rem;
+    margin: 15px 0 10px 0;
+    text-align: center;
+}
+
+/* Botão WhatsApp Laranja */
+.combo-whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: linear-gradient(90deg, #D45B24, #E96629);
+    color: white !important;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    border: none;
+    width: 100%;
+    box-shadow: 0 3px 10px rgba(212, 91, 36, 0.3);
+}
+
+.combo-whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 91, 36, 0.4);
+    background: linear-gradient(90deg, #E96629, #D45B24);
+}
+
+.combo-whatsapp-btn i {
+    font-size: 1.2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .combos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .combo-whatsapp-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .combo-header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .combos-container {
+        padding: 15px;
+    }
+    
+    .combo-item {
+        padding: 12px;
+    }
+}
 /* Seção de Vídeos */
 
 .videos-section {
