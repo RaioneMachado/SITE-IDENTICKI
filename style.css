@@ -2847,7 +2847,7 @@ footer {
         margin-top: 10px !important;    /* Espaço controlado */
     }
 }
-/* COUNTDOWN FIXO NO TOPO */
+/* Contador fixo */
 .countdown-fixed {
     position: fixed;
     top: 0;
@@ -2855,9 +2855,10 @@ footer {
     width: 100%;
     z-index: 1000;
     background: linear-gradient(135deg, #5CBBB8 0%, #3A8A87 100%);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
   
+  /* Container */
   .countdown-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -2920,28 +2921,31 @@ footer {
     padding-bottom: 5px;
   }
   
-  /* Ajuste para o conteúdo não ficar escondido */
-  body {
-    padding-top: 60px;
+  /* === ESSENCIAL: Espaço no topo da CAPA === */
+  .hero, .banner, .capa, .topo, .main-section {
+    margin-top: 60px;
   }
   
-  /* Responsivo */
+  /* Mobile */
   @media (max-width: 768px) {
     .countdown-container {
       flex-direction: column;
       gap: 5px;
       padding: 8px 10px;
     }
-    
+  
     .countdown-item span:first-child {
       font-size: 1.1rem;
       min-width: 35px;
     }
-    
-    body {
-      padding-top: 90px;
+  
+    /* Mais espaço no mobile */
+    .hero, .banner, .capa, .topo, .main-section {
+      margin-top: 90px;
     }
   }
+  
+  
 /* SEÇÃO DE TRANSFORMAÇÃO - VERSÃO FINAL */
 .transformation-section {
     padding: 100px 0;
