@@ -1,133 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Inscrição - Imersão de Vendas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Inscrição - Imersão de Vendas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="form-container">
-        <div class="form-header">
-            <h2><i class="fas fa-user-edit"></i> DADOS PARA INSCRIÇÃO</h2>
-            <p>Preencha seus dados para garantir sua vaga no 1º lote</p>
-        </div>
-        
-        <form id="inscricaoForm" action="https://formsubmit.co/raionemachado20@gmail.com" method="POST" autocomplete="off">
-            <!-- Redirecionamento após envio -->
-            <input type="hidden" name="_next" value="https://pay.kiwify.com.br/msptsDm">
-            <!-- Ocultar captcha do formsubmit -->
-            <input type="hidden" name="_captcha" value="false">
-
-            <!-- Dados Pessoais -->
-            <div class="form-group">
-                <label for="nome">Nome Completo*</label>
-                <input type="text" id="nome" name="nome" required autocomplete="off">
-            </div>
-            
-            <div class="form-group">
-                <label for="email">E-mail*</label>
-                <input type="email" id="email" name="email" required autocomplete="off">
-            </div>
-            
-            <div class="form-group">
-                <label for="whatsapp">WhatsApp*</label>
-                <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="off">
-            </div>
-            
-            <div class="form-group">
-                <label for="profissao">Profissão/Ocupação*</label>
-                <input type="text" id="profissao" name="profissao" required autocomplete="off">
-            </div>
-            
-            <div class="form-group">
-                <label for="cidade">Cidade/Estado*</label>
-                <input type="text" id="cidade" name="cidade" required autocomplete="off">
-            </div>
-            
-            <!-- Nível de Conhecimento (Opcional) -->
-            <div class="form-group">
-                <label for="nivel_conhecimento">Nível de conhecimento em redes sociais</label>
-                <select id="nivel_conhecimento" name="nivel_conhecimento" autocomplete="off">
-                    <option value="">Selecione (opcional)</option>
-                    <option value="iniciante">Iniciante</option>
-                    <option value="intermediario">Intermediário</option>
-                    <option value="avancado">Avançado</option>
-                </select>
-            </div>
-            
-            <!-- Experiência -->
-            <div class="form-group">
-                <label>Já vende produtos/serviços atualmente?*</label>
-                <div class="custom-radio-group">
-                    <label class="custom-radio">
-                        <input type="radio" name="vende_atualmente" value="sim" required>
-                        <span class="radio-btn"></span>
-                        <span>Sim</span>
-                    </label>
-                    <label class="custom-radio">
-                        <input type="radio" name="vende_atualmente" value="nao">
-                        <span class="radio-btn"></span>
-                        <span>Não</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Já teve equipe/comercial?*</label>
-                <div class="custom-radio-group">
-                    <label class="custom-radio">
-                        <input type="radio" name="teve_equipe" value="sim" required>
-                        <span class="radio-btn"></span>
-                        <span>Sim</span>
-                    </label>
-                    <label class="custom-radio">
-                        <input type="radio" name="teve_equipe" value="nao">
-                        <span class="radio-btn"></span>
-                        <span>Não</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Tem interesse em treinar alguém para auxiliar?*</label>
-                <div class="custom-radio-group">
-                    <label class="custom-radio">
-                        <input type="radio" name="treinar_auxiliar" value="sim" required>
-                        <span class="radio-btn"></span>
-                        <span>Sim</span>
-                    </label>
-                    <label class="custom-radio">
-                        <input type="radio" name="treinar_auxiliar" value="nao">
-                        <span class="radio-btn"></span>
-                        <span>Não</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="expectativas">Quais suas principais expectativas para esse treinamento? <span class="optional-text">(opcional)</span></label>
-                <textarea id="expectativas" name="expectativas" rows="3" autocomplete="off"></textarea>
-            </div>
-            
-            <!-- Área de Status (pode ser usada com JS se quiser feedback visual) -->
-            <div id="loading" class="status-message hidden">
-                <i class="fas fa-spinner fa-spin"></i> Enviando seus dados...
-            </div>
-            
-            <div id="formSuccess" class="status-message hidden">
-                <i class="fas fa-check-circle"></i> Dados recebidos! Redirecionando...
-            </div>
-            
-            <div class="form-submit">
-                <button type="submit" class="btn-continue">
-                    <i class="fas fa-arrow-right"></i> Continuar para Pagamento
-                </button>
-            </div>
-        </form>
+  <div class="form-container">
+    <div class="form-header">
+      <h2><i class="fas fa-user-edit"></i> DADOS PARA INSCRIÇÃO</h2>
+      <p>Preencha seus dados para garantir sua vaga no 1º lote</p>
     </div>
 
-    <script src="script.js"></script>
+    <form id="inscricaoForm" action="https://formsubmit.co/raionemachado20@gmail.com" method="POST" autocomplete="off">
+      <!-- Redirecionamento após envio -->
+      <input type="hidden" name="_next" value="https://pay.kiwify.com.br/msptsDm" />
+      <!-- Ocultar captcha do formsubmit -->
+      <input type="hidden" name="_captcha" value="false" />
+
+      <!-- Dados Pessoais -->
+      <div class="form-group">
+        <label for="nome">Nome Completo*</label>
+        <input type="text" id="nome" name="nome" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail*</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="whatsapp">WhatsApp*</label>
+        <input type="tel" id="whatsapp" name="whatsapp" required />
+      </div>
+
+      <div class="form-group">
+        <label for="profissao">Profissão/Ocupação*</label>
+        <input type="text" id="profissao" name="profissao" required />
+      </div>
+
+      <div class="form-group">
+        <label for="cidade">Cidade/Estado*</label>
+        <input type="text" id="cidade" name="cidade" required />
+      </div>
+
+      <!-- Nível de Conhecimento (Opcional) -->
+      <div class="form-group">
+        <label for="nivel_conhecimento">Nível de conhecimento em redes sociais</label>
+        <select id="nivel_conhecimento" name="nivel_conhecimento">
+          <option value="">Selecione (opcional)</option>
+          <option value="iniciante">Iniciante</option>
+          <option value="intermediario">Intermediário</option>
+          <option value="avancado">Avançado</option>
+        </select>
+      </div>
+
+      <!-- Experiência -->
+      <div class="form-group">
+        <label>Já vende produtos/serviços atualmente?*</label>
+        <div class="custom-radio-group">
+          <label class="custom-radio">
+            <input type="radio" name="vende_atualmente" value="sim" required />
+            <span class="radio-btn"></span>
+            <span>Sim</span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="vende_atualmente" value="nao" />
+            <span class="radio-btn"></span>
+            <span>Não</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Já teve equipe/comercial?*</label>
+        <div class="custom-radio-group">
+          <label class="custom-radio">
+            <input type="radio" name="teve_equipe" value="sim" required />
+            <span class="radio-btn"></span>
+            <span>Sim</span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="teve_equipe" value="nao" />
+            <span class="radio-btn"></span>
+            <span>Não</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tem interesse em treinar alguém para auxiliar?*</label>
+        <div class="custom-radio-group">
+          <label class="custom-radio">
+            <input type="radio" name="treinar_auxiliar" value="sim" required />
+            <span class="radio-btn"></span>
+            <span>Sim</span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="treinar_auxiliar" value="nao" />
+            <span class="radio-btn"></span>
+            <span>Não</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="expectativas">Quais suas principais expectativas para esse treinamento?
+          <span class="optional-text">(opcional)</span>
+        </label>
+        <textarea id="expectativas" name="expectativas" rows="3"></textarea>
+      </div>
+
+      <!-- Mensagens de status -->
+      <div id="loading" class="status-message hidden">
+        <i class="fas fa-spinner fa-spin"></i> Enviando seus dados...
+      </div>
+
+      <div id="formSuccess" class="status-message hidden">
+        <i class="fas fa-check-circle"></i> Dados recebidos! Redirecionando...
+      </div>
+
+      <!-- Botão de envio -->
+      <div class="form-submit">
+        <button type="submit" class="btn-continue">
+          <i class="fas fa-arrow-right"></i> Continuar para Pagamento
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
