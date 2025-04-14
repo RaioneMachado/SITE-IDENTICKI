@@ -466,16 +466,15 @@ nav ul li a:hover {
     }
 }
 
-/* Seção Mentor Dinâmica */
-
+/* Seção Mentor */
 .mentor-section {
     padding: 100px 0;
     background-color: #fff8f5;
     position: relative;
     overflow: hidden;
-}
-
-.mentor-section::before {
+  }
+  
+  .mentor-section::before {
     content: "";
     position: absolute;
     top: -50px;
@@ -485,9 +484,9 @@ nav ul li a:hover {
     background-color: rgba(233, 102, 41, 0.1);
     border-radius: 50%;
     z-index: 0;
-}
-
-.mentor-section .section-title {
+  }
+  
+  .mentor-section .section-title {
     font-size: 3.5rem;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -495,14 +494,14 @@ nav ul li a:hover {
     position: relative;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-}
-
-.mentor-section .highlight {
+  }
+  
+  .mentor-section .highlight {
     color: #E96629;
     position: relative;
-}
-
-.mentor-section .highlight::after {
+  }
+  
+  .mentor-section .highlight::after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -511,17 +510,17 @@ nav ul li a:hover {
     height: 5px;
     background-color: #E96629;
     transform: skewX(-15deg);
-}
-
-.mentor-content {
+  }
+  
+  .mentor-content {
     display: flex;
     align-items: center;
     gap: 60px;
     position: relative;
     z-index: 1;
-}
-
-.mentor-image {
+  }
+  
+  .mentor-image {
     flex: 0 0 45%;
     position: relative;
     border-radius: 15px;
@@ -529,25 +528,25 @@ nav ul li a:hover {
     box-shadow: 20px 20px 0px rgba(233, 102, 41, 0.2);
     transform: rotate(-2deg);
     transition: all 0.5s ease;
-}
-
-.mentor-image:hover {
+  }
+  
+  .mentor-image:hover {
     transform: rotate(0deg) scale(1.02);
     box-shadow: 25px 25px 0px rgba(233, 102, 41, 0.3);
-}
-
-.mentor-image img {
+  }
+  
+  .mentor-image img {
     width: 100%;
     height: auto;
     display: block;
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.mentor-image:hover img {
+  }
+  
+  .mentor-image:hover img {
     transform: scale(1.05);
-}
-
-.mentor-badge {
+  }
+  
+  .mentor-badge {
     position: absolute;
     bottom: -20px;
     right: -20px;
@@ -559,30 +558,30 @@ nav ul li a:hover {
     box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
     transform: rotate(5deg);
     transition: all 0.5s ease;
-}
-
-.mentor-badge span:first-child {
+  }
+  
+  .mentor-badge span:first-child {
     font-size: 2.5rem;
     font-weight: 800;
     display: block;
     font-family: 'Montserrat', sans-serif;
-}
-
-.mentor-badge span:last-child {
+  }
+  
+  .mentor-badge span:last-child {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.mentor-image:hover .mentor-badge {
+  }
+  
+  .mentor-image:hover .mentor-badge {
     transform: rotate(0deg) scale(1.1);
-}
-
-.mentor-info {
+  }
+  
+  .mentor-info {
     flex: 1;
-}
-
-.mentor-info h3 {
+  }
+  
+  .mentor-info h3 {
     font-size: 2.2rem;
     color: #E96629;
     margin-bottom: 10px;
@@ -590,9 +589,9 @@ nav ul li a:hover {
     letter-spacing: 1px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-}
-
-.mentor-title {
+  }
+  
+  .mentor-title {
     font-size: 1.2rem;
     color: #666;
     margin-bottom: 30px;
@@ -601,9 +600,9 @@ nav ul li a:hover {
     text-transform: uppercase;
     position: relative;
     display: inline-block;
-}
-
-.mentor-title::after {
+  }
+  
+  .mentor-title::after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -611,9 +610,9 @@ nav ul li a:hover {
     width: 50px;
     height: 3px;
     background-color: #E96629;
-}
-
-.mentor-quote {
+  }
+  
+  .mentor-quote {
     font-size: 1.8rem;
     line-height: 1.5;
     color: #333;
@@ -622,9 +621,9 @@ nav ul li a:hover {
     font-family: 'Playfair Display', serif;
     position: relative;
     padding-left: 40px;
-}
-
-.mentor-quote::before {
+  }
+  
+  .mentor-quote::before {
     content: "";
     position: absolute;
     left: 0;
@@ -632,118 +631,119 @@ nav ul li a:hover {
     height: 100%;
     width: 5px;
     background-color: #E96629;
-}
-
-.mentor-quote .counter {
+  }
+  
+  .mentor-quote .counter {
     color: #E96629;
     font-weight: 800;
-}
-
-.mentor-stats {
+  }
+  
+  .mentor-stats {
     display: flex;
     gap: 30px;
     margin-top: 40px;
-}
-
-.stat-item {
+  }
+  
+  .stat-item {
     text-align: center;
     flex: 1;
-}
-
-.stat-item span:first-child {
+  }
+  
+  .stat-item span:first-child {
     font-size: 3rem;
     font-weight: 800;
     color: #E96629;
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
     min-width: 60px;
-}
-
-.stat-item span:last-child {
+  }
+  
+  .stat-item span:last-child {
     font-size: 1rem;
     color: #E96629;
     font-weight: 600;
-}
-
-.stat-item p {
+  }
+  
+  .stat-item p {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 10px;
     color: #666;
     font-weight: 600;
-}
-
-/* Responsividade */
-@media (max-width: 992px) {
+  }
+  
+  /* Responsividade */
+  @media (max-width: 992px) {
     .mentor-content {
-        flex-direction: column;
-        gap: 40px;
+      flex-direction: column;
+      gap: 40px;
     }
     
     .mentor-image {
-        flex: 0 0 auto;
-        width: 80%;
+      flex: 0 0 auto;
+      width: 80%;
     }
     
     .mentor-section .section-title {
-        font-size: 2.5rem;
+      font-size: 2.5rem;
     }
     
     .mentor-quote {
-        font-size: 1.4rem;
+      font-size: 1.4rem;
     }
     
     .mentor-stats {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
     }
     
     .stat-item {
-        flex: 0 0 calc(50% - 15px);
-        margin-bottom: 20px;
+      flex: 0 0 calc(50% - 15px);
+      margin-bottom: 20px;
     }
-}
-
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .mentor-section {
-        padding: 60px 0;
+      padding: 60px 0;
     }
     
     .mentor-section .section-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
+      font-size: 2rem;
+      margin-bottom: 30px;
     }
     
     .mentor-image {
-        width: 100%;
+      width: 100%;
     }
     
     .mentor-badge {
-        padding: 15px;
-        right: -10px;
+      padding: 15px;
+      right: -10px;
     }
     
     .mentor-badge span:first-child {
-        font-size: 2rem;
+      font-size: 2rem;
     }
     
     .mentor-info h3 {
-        font-size: 1.8rem;
+      font-size: 1.8rem;
     }
     
     .mentor-quote {
-        font-size: 1.2rem;
-        padding-left: 20px;
+      font-size: 1.2rem;
+      padding-left: 20px;
     }
     
     .stat-item {
-        flex: 0 0 100%;
+      flex: 0 0 100%;
     }
     
     .stat-item span:first-child {
-        font-size: 2.5rem;
+      font-size: 2.5rem;
     }
-}
+  }
+  
 
 /* Oferta Especial - Versão Premium */
 .special-offer {
@@ -3338,6 +3338,7 @@ footer {
     overflow: hidden;
     border-top: 1px solid #333;
     border-bottom: 1px solid #333;
+    color: white;
   }
   
   .influence-power-section::before {
@@ -3352,13 +3353,32 @@ footer {
   }
   
   .influence-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
     text-align: center;
+    padding: 0 20px;
   }
   
+  .influence-text {
+    flex: 1 1 300px;
+  }
+  
+  .influence-image {
+    flex: 1 1 300px;
+  }
+  
+  .influence-image img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* FRASE DE IMPACTO */
   .impact-phrase {
     font-family: 'Poppins', sans-serif;
     font-size: 1.8rem;
@@ -3368,6 +3388,7 @@ footer {
     font-weight: 500;
   }
   
+  /* DESTAQUE */
   .power-highlight {
     margin: 60px 0 40px;
   }
@@ -3383,7 +3404,7 @@ footer {
   
   .power-highlight h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.0rem;
+    font-size: 2rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -3405,6 +3426,7 @@ footer {
     transform: skewX(-15deg);
   }
   
+  /* BOTÃO CTA */
   .power-cta {
     display: inline-flex;
     align-items: center;
@@ -3437,78 +3459,7 @@ footer {
     transform: translateX(5px);
   }
   
-  /* RESPONSIVIDADE */
-  @media (max-width: 992px) {
-    .impact-phrase {
-      font-size: 1.5rem;
-    }
-    
-    .power-highlight h2 {
-      font-size: 3rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .influence-power-section {
-      padding: 80px 0;
-    }
-    
-    .impact-phrase {
-      font-size: 1.3rem;
-      padding: 0 20px;
-    }
-    
-    .power-highlight h2 {
-      font-size: 2.2rem;
-    }
-    
-    .power-cta {
-      padding: 16px 35px;
-      font-size: 1rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .impact-phrase {
-      font-size: 1.1rem;
-    }
-    
-    .power-highlight h2 {
-      font-size: 1.8rem;
-    }
-    
-    .power-highlight p {
-      font-size: 1rem;
-    }
-  }
-  .influence-power-section {
-    position: relative;
-    overflow: hidden;
-    padding: 50px;
-    color: white;
-  }
-  
-  .influence-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 30px;
-  }
-  
-  .influence-text {
-    flex: 1 1 300px;
-  }
-  
-  .influence-image {
-    flex: 1 1 300px;
-  }
-  
-  .influence-image img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
-  
-  /* Responsividade */
+  /* CONTROLE DE VISIBILIDADE */
   .desktop-only {
     display: block;
   }
@@ -3517,15 +3468,60 @@ footer {
     display: none;
   }
   
+  /* RESPONSIVIDADE */
+  @media (max-width: 992px) {
+    .impact-phrase {
+      font-size: 1.5rem;
+    }
+  
+    .power-highlight h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
   @media (max-width: 768px) {
+    .influence-power-section {
+      padding: 80px 0;
+    }
+  
+    .impact-phrase {
+      font-size: 1.3rem;
+      padding: 0 10px;
+    }
+  
+    .power-highlight h2 {
+      font-size: 1.6rem;
+    }
+  
+    .power-cta {
+      padding: 16px 35px;
+      font-size: 1rem;
+    }
+  
     .desktop-only {
       display: none !important;
     }
+  
     .mobile-only {
       display: block !important;
       margin: 20px 0;
     }
   }
+  
+  @media (max-width: 480px) {
+    .impact-phrase {
+      font-size: 1.1rem;
+    }
+  
+    .power-highlight h2 {
+      font-size: 1.4rem;
+    }
+  
+    .power-highlight p {
+      font-size: 1rem;
+    }
+  }
+  
   /* Estilo herdado da seção mentor para imagem */
 .estilo-mentor {
     flex: 0 0 45%;
