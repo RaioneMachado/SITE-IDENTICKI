@@ -4058,4 +4058,202 @@ footer {
   * {
     box-sizing: border-box;
   }
-  
+
+
+
+    /* css da página do formulário*/
+
+/* Estilos Gerais */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%);
+    color: white;
+    padding: 20px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 15px;
+    border: 1px solid #E96629;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #E96629;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: #aaa;
+}
+
+/* Campos do Formulário */
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #ddd;
+}
+
+.optional-text {
+    color: #aaa;
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(30,30,30,0.8);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #E96629;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(233, 102, 41, 0.2);
+}
+
+/* Radio Buttons Estilizados */
+.custom-radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-btn {
+    height: 20px;
+    width: 20px;
+    border: 2px solid #555;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.radio-btn::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #E96629;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-radio input:checked ~ .radio-btn {
+    border-color: #E96629;
+}
+
+.custom-radio input:checked ~ .radio-btn::after {
+    opacity: 1;
+}
+
+/* Botão de Continuar */
+.btn-continue {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, #E96629, #D45B24);
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.btn-continue:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212, 91, 36, 0.4);
+}
+
+.btn-continue:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Mensagens de Status */
+.status-message {
+    text-align: center;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    background: rgba(92, 187, 184, 0.2);
+}
+
+.status-message i {
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+#loading {
+    color: #5CBBB8;
+}
+
+#formSuccess {
+    color: #4CAF50;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .custom-radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-continue {
+        width: 100%;
+        justify-content: center;
+    }
+}
