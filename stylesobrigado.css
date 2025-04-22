@@ -1,0 +1,233 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%);
+    color: white;
+    padding: 20px;
+    line-height: 1.6;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Container Principal */
+.thank-you-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cartão de Agradecimento */
+.thank-you-card {
+    position: relative;
+    z-index: 10;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 15px;
+    border: 1px solid #E96629;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 40px 30px;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Títulos */
+.main-title {
+    color: #E96629;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #ddd;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Caixa de Mensagem */
+.message-box {
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 4px solid #E96629;
+}
+
+.highlight-text {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Botão do WhatsApp */
+.whatsapp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-whatsapp {
+    padding: 16px 35px;
+    background: linear-gradient(90deg, #25D366, #128C7E);
+    border-radius: 8px;
+    color: white !important;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(18, 140, 126, 0.4);
+}
+
+.urgency-text {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.urgency-text span {
+    color: #E96629;
+    font-weight: 700;
+}
+
+/* Instruções */
+.instructions-box {
+    margin: 35px 0 25px;
+    text-align: center;
+}
+
+.instructions-title {
+    color: #E96629;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.steps-list li {
+    margin-bottom: 15px;
+    padding: 12px 20px;
+    background: rgba(40, 40, 40, 0.7);
+    border-radius: 8px;
+    text-align: left;
+    position: relative;
+    padding-left: 50px;
+    font-size: 1.05rem;
+}
+
+.step-number {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    background: #E96629;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Garantia */
+.guarantee-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(233, 102, 41, 0.1);
+    border-radius: 8px;
+    color: #5CBBB8;
+    font-weight: 500;
+}
+
+.guarantee-box i {
+    font-size: 1.2rem;
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #E96629;
+    opacity: 0;
+    animation: confettiFall 5s linear forwards;
+    z-index: 1;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .thank-you-card {
+        padding: 30px 20px;
+    }
+    
+    .main-title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .highlight-text {
+        font-size: 1.1rem;
+    }
+    
+    .btn-whatsapp {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    .steps-list li {
+        padding: 10px 15px 10px 45px;
+        font-size: 1rem;
+    }
+}
