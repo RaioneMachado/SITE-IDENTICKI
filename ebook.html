@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 [ÚLTIMAS VAGAS] Domine 100 Gatilhos Mentais e Faça Seus Primeiros 100K Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== RESET E ESTILOS BASE ===== */
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FF8C42;
+            --whatsapp: #25D366;
+            --dark: #0a0a0a;
+            --dark-light: #1e1e1e;
+            --text-highlight: #FFD700;
+            --glow: radial-gradient(circle, rgba(255,107,0,0.4) 0%, rgba(255,107,0,0) 70%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efeitos de luz no fundo */
+        .light-effect {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--glow);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        .light-1 {
+            top: -100px;
+            left: -100px;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+        
+        .light-2 {
+            bottom: -50px;
+            right: -100px;
+            animation: float 18s infinite alternate-reverse ease-in-out;
+        }
+        
+        .light-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            opacity: 0.3;
+            animation: pulse-glow 8s infinite alternate;
+        }
+
+        /* ===== BARRA DE URGÊNCIA ===== */
+        .urgency-bar {
+            background: linear-gradient(90deg, #FF0000, #FF6B00);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            width: 100%;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 3vw, 1.1rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(255,0,0,0.3);
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== ESTRUTURA PRINCIPAL ===== */
+        .sales-funnel {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ===== CABEÇALHO ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            display: inline-block;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== CAPA DO EBOOK RESPONSIVA ===== */
+        .ebook-hero-container {
+            width: 100%;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid rgba(255, 107, 0, 0.3);
+        }
+
+        .ebook-hero {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        /* Imagem para mobile - visível apenas em mobile */
+        .ebook-hero-mobile {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* Imagem para desktop - oculta em mobile */
+        .ebook-hero-desktop {
+            display: none;
+            max-width: 100%;
+        }
+
+        .ebook-hero-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 0, 0.4);
+        }
+
+        /* ===== TÍTULOS ===== */
+        .main-title {
+            color: white;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            margin-bottom: 15px;
+            font-weight: 900;
+            line-height: 1.2;
+            padding: 0 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .main-title span {
+            color: var(--primary);
+            display: block;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .subtitle {
+            color: #ddd;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            margin-bottom: 30px;
+            font-weight: 600;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        /* ===== SEÇÃO DE BENEFÍCIOS ===== */
+        .benefits-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--glow);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .benefits-title {
+            color: var(--text-highlight);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            background: rgba(30,30,30,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border-bottom: 3px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .benefit-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--text-highlight));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .benefit-item:hover::after {
+            transform: scaleX(1);
+        }
+
+        .benefit-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+        }
+
+        .benefit-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .benefit-item p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* ===== TESTEMUNHAL ===== */
+        .testimonial {
+            background: rgba(255,107,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            position: relative;
+            border: 1px solid rgba(255,107,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,107,0,0.05) 0%, rgba(255,107,0,0) 100%);
+            z-index: -1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 10px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            color: rgba(255,107,0,0.3);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+        }
+
+        /* ===== OFERTA ===== */
+        .offer-section {
+            background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            border: 2px dashed var(--primary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .offer-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--glow);
+            opacity: 0.1;
+            z-index: -1;
+            animation: pulse-glow 4s infinite alternate;
+        }
+
+        .offer-title {
+            color: var(--text-highlight);
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .price {
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            font-weight: 900;
+            color: white;
+            margin: 15px 0;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(to right, var(--text-highlight), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .old-price {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #aaa;
+            text-decoration: line-through;
+        }
+
+        /* ===== BÔNUS ===== */
+        .bonus-section {
+            background: rgba(255,215,0,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px dashed var(--text-highlight);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .bonus-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 70%);
+            z-index: -1;
+        }
+
+        .bonus-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(30,30,30,0.5);
+        }
+
+        .bonus-item:hover {
+            background: rgba(255,215,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .bonus-icon {
+            color: var(--text-highlight);
+            font-size: 1.2rem;
+            min-width: 25px;
+            padding-top: 3px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+
+        .bonus-item h3 {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .bonus-item p {
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        /* ===== CONTADOR DE ESCASSEZ ===== */
+        .scarcity-counter {
+            background: rgba(255,0,0,0.2);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            border: 1px solid rgba(255,0,0,0.3);
+            animation: pulse 1.5s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scarcity-counter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,0,0,0) 0%, rgba(255,0,0,0.3) 50%, rgba(255,0,0,0) 100%);
+            animation: shine 3s infinite;
+        }
+
+        .scarcity-counter strong {
+            color: var(--text-highlight);
+            position: relative;
+        }
+
+        /* ===== CTA ===== */
+        .cta-box {
+            background: linear-gradient(135deg, #FF6B00 0%, #FF0000 100%);
+            border-radius: 10px;
+            padding: 25px 15px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+            animation: pulse 1.5s infinite alternate;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 5s infinite;
+            z-index: -1;
+        }
+
+        .cta-title {
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            margin-bottom: 15px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .btn-kiwify {
+            display: inline-block;
+            padding: 16px 30px;
+            background: var(--text-highlight);
+            color: #000 !important;
+            text-decoration: none;
+            font-weight: 900;
+            border-radius: 50px;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin: 12px 0;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-kiwify::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .btn-kiwify:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-kiwify:hover::before {
+            opacity: 0;
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            color: #ddd;
+            font-size: clamp(0.75rem, 3vw, 0.9rem);
+            flex-wrap: wrap;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes pulse {
+            0% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.9; transform: scale(1); }
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.3; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ===== MEDIA QUERIES PARA IMAGENS RESPONSIVAS ===== */
+        @media (max-width: 600px) {
+            /* Mostra apenas a imagem mobile em telas pequenas */
+            .ebook-hero-mobile {
+                display: block;
+            }
+            .ebook-hero-desktop {
+                display: none;
+            }
+            
+            /* Estilos adicionais para mobile */
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefit-item {
+                padding: 15px 12px;
+            }
+            
+            .testimonial {
+                padding: 15px;
+            }
+            
+            .offer-section, .bonus-section {
+                padding: 15px 10px;
+            }
+            
+            .btn-kiwify {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+            
+            .guarantee {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .light-effect {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        @media (min-width: 601px) {
+            /* Mostra apenas a imagem desktop em telas maiores */
+            .ebook-hero-mobile {
+                display: none;
+            }
+            .ebook-hero-desktop {
+                display: block;
+            }
+            
+            .ebook-hero-container {
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .urgency-bar {
+                font-size: 0.7rem;
+                padding: 8px 5px;
+            }
+            
+            .main-title {
+                font-size: 1.4rem;
+            }
+            
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .benefit-icon {
+                font-size: 1.5rem;
+            }
+            
+            .price {
+                font-size: 1.8rem;
+            }
+            
+            .old-price {
+                font-size: 0.9rem;
+                top: -15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efeitos de luz no fundo -->
+    <div class="light-effect light-1"></div>
+    <div class="light-effect light-2"></div>
+    <div class="light-effect light-3"></div>
+
+    <!-- BARRA DE URGÊNCIA DINÂMICA -->
+    <div class="urgency-bar" id="urgencyBar">
+        ⚠️ ATENÇÃO: ÚLTIMOS 17 EBOOKS DISPONÍVEIS - PROMOÇÃO ACABA EM <span id="countdown">30:00</span>
+    </div>
+
+    <!-- FUNIL DE VENDAS SUPER PERSUASIVO -->
+    <div class="sales-funnel">
+        <!-- CABEÇALHO COM GATILHO DE CURIOSIDADE -->
+        <div class="header">
+            <div class="badge">EDIÇÃO LIMITADA 2025</div>
+            
+            <!-- IMAGEM DO EBOOK RESPONSIVA - CORRIGIDA -->
+            <div class="ebook-hero-container">
+                <!-- Imagem para mobile -->
+                <img src="imagens/capa ebook mobile.png" 
+                     alt="Ebook 100 Gatilhos Mentais - Versão Mobile" 
+                     class="ebook-hero ebook-hero-mobile">
+                
+                <!-- Imagem para desktop -->
+                <img src="imagens/capa ebook desk (1).png" 
+                     alt="Ebook 100 Gatilhos Mentais - Versão Desktop" 
+                     class="ebook-hero ebook-hero-desktop">
+            </div>
+            
+            <h1 class="main-title">
+                <span>O MÉTODO COMPROVADO</span>
+                PARA FAZER SEUS PRIMEIROS 100K ONLINE
+            </h1>
+            
+            <p class="subtitle">
+                Descubra os <strong>100 Gatilhos Mentais</strong> que os melhores marketeiros usam para vender 
+                <strong>sem aparecer</strong>, <strong>sem gravar vídeos</strong> e <strong>sem precisar de seguidores</strong>!
+            </p>
+        </div>
+
+        <!-- SEÇÃO DE BENEFÍCIOS COM GATILHO DE AUTORIDADE -->
+        <div class="benefits-section">
+            <h2 class="benefits-title">O QUE VOCÊ VAI DOMINAR:</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="benefit-title">Gatilhos Psicológicos Secretos</h3>
+                    <p>As mesmas técnicas usadas pela Amazon e Apple para fazer você comprar sem perceber</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="benefit-title">Conversões Explosivas</h3>
+                    <p>Aumente suas vendas em até 300% aplicando esses padrões de persuasão</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+                    <h3 class="benefit-title">Escassez Artificial</h3>
+                    <p>Crie demanda urgente mesmo que seu produto seja digital e ilimitado</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="benefit-title">Prova Social Irrefutável</h3>
+                    <p>Técnicas avançadas para fazer seus clientes venderem por você</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TESTEMUNHAL COM GATILHO DE PROVA SOCIAL -->
+        <div class="testimonial">
+            <p class="testimonial-text">
+                "Eu estava desesperado, tentando vender online há 2 anos sem sucesso. Em 30 dias aplicando apenas 7 dos 100 gatilhos, fiz R$ 87.200,00. Esse ebook mudou minha vida financeira para sempre!"
+            </p>
+            <p class="testimonial-author">- Ricardo Fernandes, Ex-uber que virou Expert em Vendas</p>
+        </div>
+
+        <!-- BÔNUS COM GATILHO DE ESCASSEZ -->
+        <div class="bonus-section">
+            <h2 class="benefits-title">BÔNUS EXCLUSIVOS (LIMITADOS)</h2>
+            
+            <div class="bonus-item">
+                <div class="bonus-icon"><i class="fas fa-gift"></i></div>
+                <div>
+                    <h3>Guia de Aplicação Prática (R$ 97,00)</h3>
+                    <p>Passo a passo para implementar cada gatilho hoje mesmo</p>
+                </div>
+            </div>
+            
+            <div class="bonus-item">
+                <div class="bonus-icon"><i class="fas fa-gift"></i></div>
+                <div>
+                    <h3>Modelos Prontos de Copy (R$ 147,00)</h3>
+                    <p>Frases que vendem para você só copiar e colar</p>
+                </div>
+            </div>
+            
+            <div class="bonus-item">
+                <div class="bonus-icon"><i class="fas fa-gift"></i></div>
+                <div>
+                    <h3>Acesso ao Grupo VIP (R$ 197,00)</h3>
+                    <p>Comunidade secreta dos top 1% dos vendedores</p>
+                </div>
+            </div>
+            
+            <div class="scarcity-counter">
+                <p>⚠️ ATENÇÃO: Bônus disponíveis apenas para as próximas <strong>12 compras</strong>!</p>
+            </div>
+        </div>
+
+        <!-- OFERTA COM GATILHO DE URGÊNCIA -->
+        <div class="offer-section">
+            <h2 class="offer-title">OFERTA RELÂMPAGO</h2>
+            
+            <p>Hoje você leva tudo por apenas:</p>
+            
+            <div class="price">
+                <div class="old-price">De R$ 441,00</div>
+                R$ 9,90
+            </div>
+            
+            <p>Menos de <strong>R$ 0,10 por gatilho mental</strong> - o preço de um café!</p>
+            
+            <div class="scarcity-counter">
+                <p>🚨 PROMOÇÃO VÁLIDA APENAS POR MAIS <strong id="promo-countdown">30:00</strong> OU ATÉ ESGOTAR!</p>
+            </div>
+        </div>
+
+        <!-- GARANTIA COM GATILHO DE REDUÇÃO DE RISCO -->
+        <div class="testimonial" style="background: rgba(0,255,0,0.1); border-color: green;">
+            <p class="testimonial-text">
+                "Se em 7 dias você não tiver resultados aplicando pelo menos 3 gatilhos, devolvemos cada centavo. Sem perguntas, sem burocracia. Você não arrisca NADA!"
+            </p>
+        </div>
+
+        <!-- CTA FINAL COM GATILHO DE ESCASSEZ E URGÊNCIA -->
+        <div class="cta-box">
+            <h2 class="cta-title">⚠️ ÚLTIMA CHANCE!</h2>
+            <p>Você está a 1 clique de dominar as técnicas que vão te levar aos 100K</p>
+            
+            <a href="https://pay.kiwify.com.br/SPgJq6Q" class="btn-kiwify">
+                <i class="fas fa-bolt"></i> QUERO MEU ACESSO AGORA!
+            </a>
+            
+            <div class="guarantee">
+                <i class="fas fa-lock"></i>
+                <span>Pagamento 100% seguro | Entrega imediata | Suporte 24/7</span>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.7rem; color: #fff;">⚠️ Ao clicar no botão, você será direcionado para a página de pagamento segura da Kiwify</p>
+        </div>
+    </div>
+
+    <script>
+        // Contador regressivo duplo para urgência máxima
+        document.addEventListener('DOMContentLoaded', function() {
+            // Contador para a barra de urgência
+            const urgencyMessages = [
+                "⏳ ÚLTIMOS 17 EBOOKS DISPONÍVEIS!",
+                "🔥 PROMOÇÃO TERMINA EM <span id='countdown'>30:00</span>!",
+                "⚠️ 92 PESSOAS VIERAM DESSA PÁGINA HOJE!"
+            ];
+            
+            let currentMessage = 0;
+            const urgencyBar = document.querySelector('.urgency-bar');
+            
+            setInterval(function() {
+                currentMessage = (currentMessage + 1) % urgencyMessages.length;
+                urgencyBar.innerHTML = urgencyMessages[currentMessage];
+            }, 5000);
+            
+            // Contador regressivo principal
+            let timeLeft = 30 * 60; // 30 minutos em segundos
+            const countdownElement = document.getElementById('promo-countdown');
+            const urgencyCountdown = document.getElementById('countdown');
+            
+            function updateCountdown() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                countdownElement.textContent = formattedTime;
+                if (urgencyCountdown) urgencyCountdown.textContent = formattedTime;
+                
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    
+                    // Aumentar urgência nos últimos 5 minutos
+                    if (timeLeft === 5 * 60) {
+                        urgencyBar.style.background = "linear-gradient(90deg, #FF0000, #990000)";
+                        urgencyBar.style.animation = "pulse 0.5s infinite";
+                    }
+                } else {
+                    // Quando o tempo acabar (em produção, você pode redirecionar ou mostrar mensagem)
+                    countdownElement.textContent = "OFERTA ENCERRADA!";
+                    if (urgencyCountdown) urgencyCountdown.textContent = "OFERTA ENCERRADA!";
+                }
+            }
+            
+            // Atualizar a cada segundo
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Chamada inicial
+            
+            // Simular diminuição de estoque aleatoriamente
+            setInterval(function() {
+                const elements = document.querySelectorAll(".scarcity-counter strong");
+                elements.forEach(el => {
+                    if (el.textContent.match(/\d+/)) {
+                        const current = parseInt(el.textContent);
+                        if (current > 1 && Math.random() > 0.7) {
+                            el.textContent = (current - 1).toString();
+                        }
+                    }
+                });
+            }, 30000); // A cada 30 segundos
+        });
+    </script>
+</body>
+</html>
