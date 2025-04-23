@@ -15,8 +15,8 @@
     </div>
 
     <form id="inscricaoForm" action="https://formsubmit.co/raionemachado20@gmail.com" method="POST" autocomplete="off">
-      <!-- Redirecionamento após envio -->
-      <input type="hidden" name="_next" value="https://pay.kiwify.com.br/msptsDm" />
+      <!-- Redirecionamento após envio para WhatsApp -->
+      <input type="hidden" name="_next" value="https://wa.me/5562998721211" />
       <!-- Ocultar captcha do formsubmit -->
       <input type="hidden" name="_captcha" value="false" />
 
@@ -125,12 +125,31 @@
       <!-- Botão de envio -->
       <div class="form-submit">
         <button type="submit" class="btn-continue">
-          <i class="fas fa-arrow-right"></i> Continuar para Pagamento
+          <i class="fas fa-arrow-right"></i> Continuar para WhatsApp
         </button>
       </div>
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Adicione este script para garantir o redirecionamento
+    document.getElementById('inscricaoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Mostra o loading
+      document.getElementById('loading').classList.remove('hidden');
+      
+      // Simula o envio do formulário
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('formSuccess').classList.remove('hidden');
+        
+        // Redireciona para o WhatsApp após 2 segundos
+        setTimeout(() => {
+          window.location.href = "https://wa.me/5562998721211";
+        }, 2000);
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
