@@ -131,25 +131,6 @@
     </form>
   </div>
 
-  <script>
-    // Adicione este script para garantir o redirecionamento
-    document.getElementById('inscricaoForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Mostra o loading
-      document.getElementById('loading').classList.remove('hidden');
-      
-      // Simula o envio do formulário
-      setTimeout(() => {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('formSuccess').classList.remove('hidden');
-        
-        // Redireciona para o WhatsApp após 2 segundos
-        setTimeout(() => {
-          window.location.href = "https://wa.me/5562998721211";
-        }, 2000);
-      }, 1500);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

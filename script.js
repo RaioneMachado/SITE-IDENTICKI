@@ -333,8 +333,8 @@ document.getElementById("inscricaoForm").addEventListener("submit", async functi
     // URL do seu Google Apps Script
     const urlDoScript = "https://script.google.com/macros/s/AKfycbyyHM9L7c79Iruy-pBsO3FD85Fa_vynilsIAcRlARKtzNJ237BoPPyJPBXveYptcKd1/exec"; 
 
-    // Define o redirecionamento após o envio
-    formData.append("_next", "https://pay.kiwify.com.br/msptsDm"); // URL do pagamento
+    // Define o redirecionamento após o envio (alterado para WhatsApp)
+    formData.append("_next", "https://wa.me/5562998721211"); // URL do WhatsApp
 
     try {
         // Envia os dados para o Google Apps Script
@@ -351,8 +351,8 @@ document.getElementById("inscricaoForm").addEventListener("submit", async functi
                 loading.classList.add("hidden");  // Esconde o ícone de carregamento
                 success.classList.remove("hidden");  // Mostra a mensagem de sucesso
 
-                // Redireciona imediatamente para a página de pagamento
-                window.location.href = "https://pay.kiwify.com.br/msptsDm";  // URL do checkout
+                // Redireciona imediatamente para o WhatsApp (alterado)
+                window.location.href = "https://wa.me/5562998721211";  // URL do WhatsApp
             } else {
                 alert("Falha ao processar os dados no servidor.");
                 loading.classList.add("hidden");  // Esconde o ícone de carregamento
