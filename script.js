@@ -331,7 +331,7 @@ document.getElementById("inscricaoForm").addEventListener("submit", async functi
     const formData = new FormData(this);
 
     // URL do seu Google Apps Script
-    const urlDoScript = "https://script.google.com/macros/s/AKfycbyyHM9L7c79Iruy-pBsO3FD85Fa_vynilsIAcRlARKtzNJ237BoPPyJPBXveYptcKd1/exec"; 
+    const urlDoScript = "https://script.google.com/macros/s/AKfycbz5_BQgBlJY1UzWS1lUGCg7LNwCDo5Je0DWb1GdPskDbybmS8P68y1CjR8yjUE-NMgq/exec"; 
 
     // Define o redirecionamento para "obrigado.html" (REMOVI O WHATSAPP)
     formData.append("_next", "obrigado.html"); // Altere o caminho se necessário
