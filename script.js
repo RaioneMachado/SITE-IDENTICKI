@@ -333,8 +333,8 @@ document.getElementById("inscricaoForm").addEventListener("submit", async functi
     // URL do seu Google Apps Script
     const urlDoScript = "https://script.google.com/macros/s/AKfycbyyHM9L7c79Iruy-pBsO3FD85Fa_vynilsIAcRlARKtzNJ237BoPPyJPBXveYptcKd1/exec"; 
 
-    // Define o redirecionamento após o envio (alterado para WhatsApp)
-    formData.append("_next", "https://wa.me/5562998721211"); // URL do WhatsApp
+    // Define o redirecionamento para "obrigado.html" (REMOVI O WHATSAPP)
+    formData.append("_next", "obrigado.html"); // Altere o caminho se necessário
 
     try {
         // Envia os dados para o Google Apps Script
@@ -351,8 +351,10 @@ document.getElementById("inscricaoForm").addEventListener("submit", async functi
                 loading.classList.add("hidden");  // Esconde o ícone de carregamento
                 success.classList.remove("hidden");  // Mostra a mensagem de sucesso
 
-                // Redireciona imediatamente para o WhatsApp (alterado)
-                window.location.href = "https://wa.me/5562998721211";  // URL do WhatsApp
+                // Redireciona para "obrigado.html" após 2 segundos (opcional)
+                setTimeout(() => {
+                    window.location.href = "obrigado.html"; // Redireciona para a página de confirmação
+                }, 2000);
             } else {
                 alert("Falha ao processar os dados no servidor.");
                 loading.classList.add("hidden");  // Esconde o ícone de carregamento
